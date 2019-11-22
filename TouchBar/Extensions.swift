@@ -51,46 +51,12 @@ public extension NotificationCenter {
 }
 
 public extension NSScreen {
-//    private static var _service: io_object_t?
-//
-//    private static var service: io_object_t {
-//        if _service != nil { return _service! }
-//
-//        var iterator: io_iterator_t = 0
-//
-//        IOServiceGetMatchingServices(
-//            kIOMasterPortDefault,
-//            IOServiceMatching("IODisplayConnect"),
-//            &iterator
-//        )
-//        _service = IOIteratorNext(iterator)
-//
-//        return _service!
-//    }
-
     static var displayBrightness: CGFloat {
         return CGFloat(CoreDisplay_Display_GetUserBrightness(0))
-
-//        var brightnessLevel: Float = 0.0
-//        IODisplayGetFloatParameter(
-//            service,
-//            0,
-//            kIODisplayBrightnessKey as CFString,
-//            &brightnessLevel
-//        )
-//
-//        return CGFloat(brightnessLevel)
     }
 
     static func setDisplayBrightness(to brightness: CGFloat) {
         CoreDisplay_Display_SetUserBrightness(0, Double(brightness))
-
-//        IODisplaySetFloatParameter(
-//            service,
-//            0,
-//            kIODisplayBrightnessKey as CFString,
-//            Float(brightness)
-//        )
     }
 }
 

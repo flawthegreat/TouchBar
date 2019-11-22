@@ -74,8 +74,6 @@ class BatteryItem: TouchBar.Item {
             ).takeUnretainedValue() as! [String: AnyObject]
 
             if let capacity = info[kIOPSCurrentCapacityKey] as? Int,
-//                let timeToEmpty = info[kIOPSTimeToEmptyKey] as? Int,
-//                let timeToFullCharge = info[kIOPSTimeToFullChargeKey] as? Int,
                let powerSourceState = info[kIOPSPowerSourceStateKey] as? String
             {
                 let isCharging = powerSourceState != "Battery Power"
@@ -107,9 +105,6 @@ class BatteryItem: TouchBar.Item {
                         alpha: 1
                     ).cgColor
                 }
-
-//                print(timeToEmpty)
-//                print(timeToFullCharge)
             }
         }
     }
