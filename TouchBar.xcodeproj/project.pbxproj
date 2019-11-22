@@ -20,7 +20,6 @@
 		CE4FCF0323797E5C004D2DC0 /* ControlStripItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */; };
 		CE59AA72237834D700A08DBE /* BatteryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA71237834D700A08DBE /* BatteryItem.swift */; };
 		CE59AA762378994200A08DBE /* AirPodsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA752378994200A08DBE /* AirPodsItem.swift */; };
-		CE59AA7A237939CB00A08DBE /* HapticFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA79237939CB00A08DBE /* HapticFeedbackManager.swift */; };
 		CE59AA7C23793D4600A08DBE /* BrightnessItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */; };
 		CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C593B2379F968001DDB05 /* VolumeItem.swift */; };
 		CEB9930A237D4AB20011DB48 /* TouchBar.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB99309237D4AB20011DB48 /* TouchBar.Item.swift */; };
@@ -53,7 +52,6 @@
 		CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlStripItem.swift; sourceTree = "<group>"; };
 		CE59AA71237834D700A08DBE /* BatteryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryItem.swift; sourceTree = "<group>"; };
 		CE59AA752378994200A08DBE /* AirPodsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsItem.swift; sourceTree = "<group>"; };
-		CE59AA79237939CB00A08DBE /* HapticFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackManager.swift; sourceTree = "<group>"; };
 		CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessItem.swift; sourceTree = "<group>"; };
 		CE6C593B2379F968001DDB05 /* VolumeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeItem.swift; sourceTree = "<group>"; };
 		CEB99309237D4AB20011DB48 /* TouchBar.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.Item.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 				CE274B8F237803E0002EA61A /* Main.xib */,
 				CE274BA023780471002EA61A /* Extensions.swift */,
 				CE274B8B237803DE002EA61A /* AppDelegate.swift */,
-				CEC74985237EFC3600E41E60 /* HapticFeedback */,
 				CEB99308237D4A740011DB48 /* TouchBar */,
 			);
 			path = TouchBar;
@@ -172,14 +169,6 @@
 				CEC74982237DF10000E41E60 /* CalculatorApplication.swift */,
 			);
 			path = Applications;
-			sourceTree = "<group>";
-		};
-		CEC74985237EFC3600E41E60 /* HapticFeedback */ = {
-			isa = PBXGroup;
-			children = (
-				CE59AA79237939CB00A08DBE /* HapticFeedbackManager.swift */,
-			);
-			path = HapticFeedback;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,7 +244,6 @@
 				CEC74981237DEEF500E41E60 /* TouchBar.Application.swift in Sources */,
 				CEC7497B237DC34F00E41E60 /* CalculatorItem.swift in Sources */,
 				CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */,
-				CE59AA7A237939CB00A08DBE /* HapticFeedbackManager.swift in Sources */,
 				CEC74979237DA3D100E41E60 /* TouchBar.Button.swift in Sources */,
 				CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */,
 				CE59AA7C23793D4600A08DBE /* BrightnessItem.swift in Sources */,
