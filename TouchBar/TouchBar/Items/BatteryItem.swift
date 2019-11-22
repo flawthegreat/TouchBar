@@ -1,0 +1,116 @@
+import Foundation
+import IOKit.ps
+
+class BatteryItem: TouchBar.Item {
+
+    private let horizontalPadding: CGFloat
+    private let verticalOffset: CGFloat
+
+    private let percentage: NSTextField
+    private let icon: NSImageView
+    private let indicator: NSView
+
+
+    init(alignment: Alignment) {
+        horizontalPadding = -3.5
+        verticalOffset = -3.0
+        
+        percentage = NSTextField(frame: NSRect(
+            x: horizontalPadding,
+            y: verticalOffset,
+            width: 0,
+            height: NSTouchBar.size.height
+        ))
+        icon = NSImageView(frame: NSRect(
+            origin: CGPoint(x: 0, y: 7),
+            size: CGSize(width: 32, height: 16)
+        ))
+        indicator = NSView(frame: NSRect(
+            origin: CGPoint(x: 3, y: 3),
+            size: CGSize(width: 2, height: 10)
+        ))
+
+        super.init(alignment: alignment, width: 0)
+
+        percentage.font = .systemFont(ofSize: NSTouchBar.fontSize)
+        percentage.textColor = .white
+
+        icon.image = NSImage(named: "BatteryIcon")
+
+        indicator.wantsLayer = true
+        indicator.layer?.cornerRadius = 1
+        icon.addSubview(indicator)
+
+        update()
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(update),
+            name: NSWorkspace.screensDidWakeNotification,
+            object: nil
+        )
+
+        let context = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
+        let source = IOPSNotificationCreateRunLoopSource({ ctx in
+            guard let context = ctx else { return }
+            Unmanaged<BatteryItem>.fromOpaque(context).takeUnretainedValue().update()
+        }, context).takeRetainedValue()
+        CFRunLoopAddSource(RunLoop.current.getCFRunLoop(), source, .defaultMode)
+
+        addSubview(percentage)
+        addSubview(icon)
+    }
+
+    required init?(coder: NSCoder) { fatalError() }
+
+
+    @objc
+    private func update() {
+        let snapshot = IOPSCopyPowerSourcesInfo().takeRetainedValue()
+        for powerSource in IOPSCopyPowerSourcesList(snapshot).takeRetainedValue() as Array {
+            let info = IOPSGetPowerSourceDescription(
+                snapshot,
+                powerSource
+            ).takeUnretainedValue() as! [String: AnyObject]
+
+            if let capacity = info[kIOPSCurrentCapacityKey] as? Int,
+//                let timeToEmpty = info[kIOPSTimeToEmptyKey] as? Int,
+//                let timeToFullCharge = info[kIOPSTimeToFullChargeKey] as? Int,
+               let powerSourceState = info[kIOPSPowerSourceStateKey] as? String
+            {
+                let isCharging = powerSourceState != "Battery Power"
+
+                percentage.stringValue = "\(capacity)%"
+                percentage.sizeToFit()
+                percentage.frame.size.height = NSTouchBar.size.height
+
+                icon.frame.origin.x = percentage.frame.width - 6
+
+                set(width: percentage.frame.width + icon.frame.width - 5)
+
+                indicator.frame.size.width = max(2, 0.22 * CGFloat(capacity))
+
+                if isCharging {
+                    indicator.layer?.backgroundColor = NSColor(
+                        red: 48.0 / 255.0,
+                        green: 209.0 / 255.0,
+                        blue: 88.0 / 255.0,
+                        alpha: 1
+                    ).cgColor
+                } else if capacity > 20 {
+                    indicator.layer?.backgroundColor = .white
+                } else {
+                    indicator.layer?.backgroundColor = NSColor(
+                        red: 255.0 / 255.0,
+                        green: 69.0 / 255.0,
+                        blue: 58.0 / 255.0,
+                        alpha: 1
+                    ).cgColor
+                }
+
+//                print(timeToEmpty)
+//                print(timeToFullCharge)
+            }
+        }
+    }
+}

@@ -1,0 +1,486 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE221BA423858E9100345581 /* CoreBrightness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE221BA323858E9100345581 /* CoreBrightness.framework */; };
+		CE221BA823858F5F00345581 /* CoreDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE221BA723858F5F00345581 /* CoreDisplay.framework */; };
+		CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B8B237803DE002EA61A /* AppDelegate.swift */; };
+		CE274B8E237803E0002EA61A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE274B8D237803E0002EA61A /* Assets.xcassets */; };
+		CE274B91237803E0002EA61A /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE274B8F237803E0002EA61A /* Main.xib */; };
+		CE274B9F2378045B002EA61A /* TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B9E2378045B002EA61A /* TouchBar.swift */; };
+		CE274BA123780471002EA61A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274BA023780471002EA61A /* Extensions.swift */; };
+		CE274BA323780487002EA61A /* DateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274BA223780487002EA61A /* DateItem.swift */; };
+		CE477EA0237B59180002913E /* MultitouchSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE477E9F237B59180002913E /* MultitouchSupport.framework */; };
+		CE477EA3237B595F0002913E /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE477EA2237B595F0002913E /* DFRFoundation.framework */; };
+		CE4FCF0323797E5C004D2DC0 /* ControlStripItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */; };
+		CE59AA72237834D700A08DBE /* BatteryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA71237834D700A08DBE /* BatteryItem.swift */; };
+		CE59AA762378994200A08DBE /* AirPodsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA752378994200A08DBE /* AirPodsItem.swift */; };
+		CE59AA7A237939CB00A08DBE /* HapticFeedbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA79237939CB00A08DBE /* HapticFeedbackManager.swift */; };
+		CE59AA7C23793D4600A08DBE /* BrightnessItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */; };
+		CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C593B2379F968001DDB05 /* VolumeItem.swift */; };
+		CEB9930A237D4AB20011DB48 /* TouchBar.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB99309237D4AB20011DB48 /* TouchBar.Item.swift */; };
+		CEB9930E237D4B550011DB48 /* TouchBar.View.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9930D237D4B550011DB48 /* TouchBar.View.swift */; };
+		CEB99310237D4C4E0011DB48 /* TouchBar.Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB9930F237D4C4E0011DB48 /* TouchBar.Extensions.swift */; };
+		CEC74979237DA3D100E41E60 /* TouchBar.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC74978237DA3D100E41E60 /* TouchBar.Button.swift */; };
+		CEC7497B237DC34F00E41E60 /* CalculatorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC7497A237DC34F00E41E60 /* CalculatorItem.swift */; };
+		CEC7497D237DC78400E41E60 /* TouchBar.Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC7497C237DC78400E41E60 /* TouchBar.Slider.swift */; };
+		CEC7497F237DED0400E41E60 /* TouchBar.ApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC7497E237DED0400E41E60 /* TouchBar.ApplicationView.swift */; };
+		CEC74981237DEEF500E41E60 /* TouchBar.Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC74980237DEEF500E41E60 /* TouchBar.Application.swift */; };
+		CEC74983237DF10000E41E60 /* CalculatorApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC74982237DF10000E41E60 /* CalculatorApplication.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CE221BA323858E9100345581 /* CoreBrightness.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBrightness.framework; path = ../../../../System/Library/PrivateFrameworks/CoreBrightness.framework; sourceTree = "<group>"; };
+		CE221BA723858F5F00345581 /* CoreDisplay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreDisplay.framework; path = ../../../../System/Library/Frameworks/CoreDisplay.framework; sourceTree = "<group>"; };
+		CE274B88237803DE002EA61A /* TouchBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE274B8B237803DE002EA61A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CE274B8D237803E0002EA61A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CE274B90237803E0002EA61A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Main.xib; sourceTree = "<group>"; };
+		CE274B92237803E0002EA61A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE274B93237803E0002EA61A /* TouchBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TouchBar.entitlements; sourceTree = "<group>"; };
+		CE274B9E2378045B002EA61A /* TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.swift; sourceTree = "<group>"; };
+		CE274BA023780471002EA61A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CE274BA223780487002EA61A /* DateItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateItem.swift; sourceTree = "<group>"; };
+		CE274BA5237804A9002EA61A /* TouchBarAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchBarAPI.h; sourceTree = "<group>"; };
+		CE274BA7237804C7002EA61A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		CE477E9F237B59180002913E /* MultitouchSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultitouchSupport.framework; path = ../../../../System/Library/PrivateFrameworks/MultitouchSupport.framework; sourceTree = "<group>"; };
+		CE477EA2237B595F0002913E /* DFRFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFRFoundation.framework; path = ../../../../System/Library/PrivateFrameworks/DFRFoundation.framework; sourceTree = "<group>"; };
+		CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlStripItem.swift; sourceTree = "<group>"; };
+		CE59AA71237834D700A08DBE /* BatteryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryItem.swift; sourceTree = "<group>"; };
+		CE59AA752378994200A08DBE /* AirPodsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsItem.swift; sourceTree = "<group>"; };
+		CE59AA79237939CB00A08DBE /* HapticFeedbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackManager.swift; sourceTree = "<group>"; };
+		CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessItem.swift; sourceTree = "<group>"; };
+		CE6C593B2379F968001DDB05 /* VolumeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeItem.swift; sourceTree = "<group>"; };
+		CEB99309237D4AB20011DB48 /* TouchBar.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.Item.swift; sourceTree = "<group>"; };
+		CEB9930D237D4B550011DB48 /* TouchBar.View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.View.swift; sourceTree = "<group>"; };
+		CEB9930F237D4C4E0011DB48 /* TouchBar.Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.Extensions.swift; sourceTree = "<group>"; };
+		CEC74978237DA3D100E41E60 /* TouchBar.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TouchBar.Button.swift; path = Items/TouchBar.Button.swift; sourceTree = "<group>"; };
+		CEC7497A237DC34F00E41E60 /* CalculatorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorItem.swift; sourceTree = "<group>"; };
+		CEC7497C237DC78400E41E60 /* TouchBar.Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.Slider.swift; sourceTree = "<group>"; };
+		CEC7497E237DED0400E41E60 /* TouchBar.ApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.ApplicationView.swift; sourceTree = "<group>"; };
+		CEC74980237DEEF500E41E60 /* TouchBar.Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.Application.swift; sourceTree = "<group>"; };
+		CEC74982237DF10000E41E60 /* CalculatorApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorApplication.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE274B85237803DE002EA61A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE221BA823858F5F00345581 /* CoreDisplay.framework in Frameworks */,
+				CE477EA3237B595F0002913E /* DFRFoundation.framework in Frameworks */,
+				CE221BA423858E9100345581 /* CoreBrightness.framework in Frameworks */,
+				CE477EA0237B59180002913E /* MultitouchSupport.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE274B7F237803DE002EA61A = {
+			isa = PBXGroup;
+			children = (
+				CE274B8A237803DE002EA61A /* TouchBar */,
+				CE274B89237803DE002EA61A /* Products */,
+				CE274B9923780422002EA61A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CE274B89237803DE002EA61A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE274B88237803DE002EA61A /* TouchBar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CE274B8A237803DE002EA61A /* TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				CE274B93237803E0002EA61A /* TouchBar.entitlements */,
+				CE274B92237803E0002EA61A /* Info.plist */,
+				CE274B8D237803E0002EA61A /* Assets.xcassets */,
+				CE274B8F237803E0002EA61A /* Main.xib */,
+				CE274BA023780471002EA61A /* Extensions.swift */,
+				CE274B8B237803DE002EA61A /* AppDelegate.swift */,
+				CEC74985237EFC3600E41E60 /* HapticFeedback */,
+				CEB99308237D4A740011DB48 /* TouchBar */,
+			);
+			path = TouchBar;
+			sourceTree = "<group>";
+		};
+		CE274B9923780422002EA61A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE221BA723858F5F00345581 /* CoreDisplay.framework */,
+				CE221BA323858E9100345581 /* CoreBrightness.framework */,
+				CE477EA2237B595F0002913E /* DFRFoundation.framework */,
+				CE477E9F237B59180002913E /* MultitouchSupport.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE274BA423780491002EA61A /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */,
+				CE274BA223780487002EA61A /* DateItem.swift */,
+				CE59AA71237834D700A08DBE /* BatteryItem.swift */,
+				CE59AA752378994200A08DBE /* AirPodsItem.swift */,
+				CE6C593B2379F968001DDB05 /* VolumeItem.swift */,
+				CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */,
+				CEC7497A237DC34F00E41E60 /* CalculatorItem.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		CE274BA6237804AC002EA61A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				CE274BA5237804A9002EA61A /* TouchBarAPI.h */,
+				CE274BA7237804C7002EA61A /* BridgingHeader.h */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		CEB99308237D4A740011DB48 /* TouchBar */ = {
+			isa = PBXGroup;
+			children = (
+				CEB9930F237D4C4E0011DB48 /* TouchBar.Extensions.swift */,
+				CE274B9E2378045B002EA61A /* TouchBar.swift */,
+				CEB9930D237D4B550011DB48 /* TouchBar.View.swift */,
+				CEC7497E237DED0400E41E60 /* TouchBar.ApplicationView.swift */,
+				CEC74980237DEEF500E41E60 /* TouchBar.Application.swift */,
+				CEB99309237D4AB20011DB48 /* TouchBar.Item.swift */,
+				CEC74978237DA3D100E41E60 /* TouchBar.Button.swift */,
+				CEC7497C237DC78400E41E60 /* TouchBar.Slider.swift */,
+				CE274BA423780491002EA61A /* Items */,
+				CEC74984237DF10600E41E60 /* Applications */,
+				CE274BA6237804AC002EA61A /* API */,
+			);
+			path = TouchBar;
+			sourceTree = "<group>";
+		};
+		CEC74984237DF10600E41E60 /* Applications */ = {
+			isa = PBXGroup;
+			children = (
+				CEC74982237DF10000E41E60 /* CalculatorApplication.swift */,
+			);
+			path = Applications;
+			sourceTree = "<group>";
+		};
+		CEC74985237EFC3600E41E60 /* HapticFeedback */ = {
+			isa = PBXGroup;
+			children = (
+				CE59AA79237939CB00A08DBE /* HapticFeedbackManager.swift */,
+			);
+			path = HapticFeedback;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE274B87237803DE002EA61A /* TouchBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE274B96237803E0002EA61A /* Build configuration list for PBXNativeTarget "TouchBar" */;
+			buildPhases = (
+				CE274B84237803DE002EA61A /* Sources */,
+				CE274B85237803DE002EA61A /* Frameworks */,
+				CE274B86237803DE002EA61A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TouchBar;
+			productName = TouchBar;
+			productReference = CE274B88237803DE002EA61A /* TouchBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE274B80237803DE002EA61A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = flaw;
+				TargetAttributes = {
+					CE274B87237803DE002EA61A = {
+						CreatedOnToolsVersion = 11.2;
+					};
+				};
+			};
+			buildConfigurationList = CE274B83237803DE002EA61A /* Build configuration list for PBXProject "TouchBar" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CE274B7F237803DE002EA61A;
+			productRefGroup = CE274B89237803DE002EA61A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE274B87237803DE002EA61A /* TouchBar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE274B86237803DE002EA61A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE274B8E237803E0002EA61A /* Assets.xcassets in Resources */,
+				CE274B91237803E0002EA61A /* Main.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE274B84237803DE002EA61A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEC74981237DEEF500E41E60 /* TouchBar.Application.swift in Sources */,
+				CEC7497B237DC34F00E41E60 /* CalculatorItem.swift in Sources */,
+				CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */,
+				CE59AA7A237939CB00A08DBE /* HapticFeedbackManager.swift in Sources */,
+				CEC74979237DA3D100E41E60 /* TouchBar.Button.swift in Sources */,
+				CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */,
+				CE59AA7C23793D4600A08DBE /* BrightnessItem.swift in Sources */,
+				CEB9930A237D4AB20011DB48 /* TouchBar.Item.swift in Sources */,
+				CE274BA123780471002EA61A /* Extensions.swift in Sources */,
+				CEB9930E237D4B550011DB48 /* TouchBar.View.swift in Sources */,
+				CEC7497F237DED0400E41E60 /* TouchBar.ApplicationView.swift in Sources */,
+				CEC7497D237DC78400E41E60 /* TouchBar.Slider.swift in Sources */,
+				CE274BA323780487002EA61A /* DateItem.swift in Sources */,
+				CEB99310237D4C4E0011DB48 /* TouchBar.Extensions.swift in Sources */,
+				CE59AA762378994200A08DBE /* AirPodsItem.swift in Sources */,
+				CE4FCF0323797E5C004D2DC0 /* ControlStripItem.swift in Sources */,
+				CEC74983237DF10000E41E60 /* CalculatorApplication.swift in Sources */,
+				CE59AA72237834D700A08DBE /* BatteryItem.swift in Sources */,
+				CE274B9F2378045B002EA61A /* TouchBar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CE274B8F237803E0002EA61A /* Main.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE274B90237803E0002EA61A /* Base */,
+			);
+			name = Main.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CE274B94237803E0002EA61A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CE274B95237803E0002EA61A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		CE274B97237803E0002EA61A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TouchBar/TouchBar.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BTRR76C26R;
+				ENABLE_HARDENED_RUNTIME = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TouchBar",
+				);
+				INFOPLIST_FILE = TouchBar/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.flaw.TouchBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = TouchBar/TouchBar/API/BridgingHeader.h;
+				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+			};
+			name = Debug;
+		};
+		CE274B98237803E0002EA61A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TouchBar/TouchBar.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = BTRR76C26R;
+				ENABLE_HARDENED_RUNTIME = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TouchBar",
+				);
+				INFOPLIST_FILE = TouchBar/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.flaw.TouchBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = TouchBar/TouchBar/API/BridgingHeader.h;
+				SWIFT_VERSION = 5.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE274B83237803DE002EA61A /* Build configuration list for PBXProject "TouchBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE274B94237803E0002EA61A /* Debug */,
+				CE274B95237803E0002EA61A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE274B96237803E0002EA61A /* Build configuration list for PBXNativeTarget "TouchBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE274B97237803E0002EA61A /* Debug */,
+				CE274B98237803E0002EA61A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE274B80237803DE002EA61A /* Project object */;
+}
