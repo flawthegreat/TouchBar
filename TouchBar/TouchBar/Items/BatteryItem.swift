@@ -95,7 +95,7 @@ class BatteryItem: TouchBar.Item {
                         blue: 88.0 / 255.0,
                         alpha: 1
                     ).cgColor
-                } else if capacity > 20 {
+                } else if capacity > 10 {
                     indicator.layer?.backgroundColor = .white
                 } else {
                     indicator.layer?.backgroundColor = NSColor(
