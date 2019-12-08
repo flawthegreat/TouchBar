@@ -75,6 +75,13 @@ class SoundManager {
             },
             nil
         )
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(updateDefaultOutputDevice),
+            name: .defaultAudioOutputDeviceHasChanged,
+            object: nil
+        )
     }
 
 
@@ -93,6 +100,7 @@ class SoundManager {
         )
     }
 
+    @objc
     private func updateDefaultOutputDevice() {
         AudioObjectGetPropertyData(
             AudioObjectID(kAudioObjectSystemObject),
