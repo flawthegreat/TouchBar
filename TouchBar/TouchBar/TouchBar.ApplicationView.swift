@@ -1,19 +1,14 @@
 import Foundation
 
 extension TouchBar {
-    class ApplicationView: NSScrollView {
+    class ApplicationView: NSView {
 
-        private let applicationContainer: NSView
         private var isDimmed: Bool
 
         public private(set) var application: Application?
 
         
         init(x: CGFloat, width: CGFloat) {
-            applicationContainer = NSView(frame: NSRect(
-                origin: .zero,
-                size: CGSize(width: 0, height: NSTouchBar.size.height)
-            ))
             isDimmed = false
 
             application = nil
@@ -23,18 +18,9 @@ extension TouchBar {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(applicationViewDidChangeWidth),
-                name: Notification.touchBarApplicationViewDidChangeWidth,
+                name: .touchBarApplicationViewDidChangeWidth,
                 object: nil
             )
-
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(applicationDidChangeWidth),
-                name: Notification.touchBarApplicationDidChangeWidth,
-                object: nil
-            )
-
-            addSubview(applicationContainer)
         }
 
         required init?(coder: NSCoder) { fatalError() }
@@ -45,23 +31,21 @@ extension TouchBar {
             application?.updateContentsToMatchWidth(animator().frame.width)
         }
 
-        @objc
-        private func applicationDidChangeWidth() {
-            applicationContainer.frame.size.width = application?.frame.width ?? 0.0
-        }
-
         public func dimApplication() {
             guard application != nil else { return }
+
             isDimmed = true
-            NSView.animate(withDuration: animationDuration) { _ in
-                applicationContainer.animator().alphaValue = 0.5
+            NSView.animate(withDuration: Constants.animationDuration) { _ in
+                application?.animator().alphaValue = 0.5
             }
         }
 
         public func makeApplicationActive() {
-            NSView.animate(withDuration: animationDuration, changes: { _ in
-                applicationContainer.animator().alphaValue = 1.0
-            }, completionHandler: { self.isDimmed = false })
+            NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
+                application?.animator().alphaValue = 1
+            }, completionHandler: {
+                self.isDimmed = false
+            })
             NSApplication.shared.activate(ignoringOtherApps: true)
         }
 
@@ -70,37 +54,41 @@ extension TouchBar {
                 makeApplicationActive()
                 return nil
             }
+
             return super.hitTest(point)
         }
 
         private func hideApplication(completionHandler callback: @escaping () -> Void = {}) {
-            NSView.animate(withDuration: animationDuration, changes: { _ in
-                applicationContainer.animator().alphaValue = 0.0
+            NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
+                application?.animator().alphaValue = 0
             }, completionHandler: callback)
         }
 
         private func showApplication(completionHandler callback: @escaping () -> Void = {}) {
-            NSView.animate(withDuration: animationDuration, changes: { _ in
-                applicationContainer.animator().alphaValue = 1.0
+            NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
+                application?.animator().alphaValue = 1
             }, completionHandler: callback)
         }
 
         public func runApplication(_ application: Application) {
+            application.alphaValue = 0
+
             if self.application != nil {
                 terminateApplication {
                     self.application = application
-                    self.applicationContainer.addSubview(application)
-                    self.applicationContainer.frame.size = application.frame.size
+                    self.application?.frame.size = self.frame.size
                     self.applicationViewDidChangeWidth()
+
+                    self.addSubview(self.application!)
 
                     self.showApplication()
                 }
             } else {
                 self.application = application
-                applicationContainer.alphaValue = 0.0
-                applicationContainer.addSubview(application)
-                applicationContainer.frame.size = application.frame.size
+                self.application?.frame.size = self.frame.size
                 applicationViewDidChangeWidth()
+
+                addSubview(self.application!)
 
                 showApplication()
             }
@@ -109,15 +97,19 @@ extension TouchBar {
         }
 
         public func terminateApplication(completionHandler callback: @escaping () -> Void = {}) {
-            if application == nil { return }
+            guard application != nil else { return }
 
             hideApplication {
                 self.application?.applicationWillTerminate()
+                NotificationCenter.default.post(
+                    name: .touchBarApplicationWillTerminate,
+                    object: nil
+                )
+
                 self.application?.removeFromSuperview()
-                self.applicationContainer.frame.size.width = 0
                 self.application = nil
                 NotificationCenter.default.post(
-                    name: Notification.touchBarApplicationDidTerminate,
+                    name: .touchBarApplicationDidTerminate,
                     object: nil
                 )
                 callback()

@@ -6,7 +6,7 @@ class BrightnessItem: TouchBar.Slider {
         super.init(alignment: alignment)
 
         icon.image = NSImage(named: "BrightnessIcon")
-        value = NSScreen.displayBrightness
+        value = CGFloat(NSScreen.displayBrightness)
         target = self
         action = #selector(adjustDisplayBrightness)
     }
@@ -16,6 +16,6 @@ class BrightnessItem: TouchBar.Slider {
 
     @objc
     private func adjustDisplayBrightness() {
-        NSScreen.setDisplayBrightness(to: min(1.0, max(0.0, value)))
+        NSScreen.displayBrightness = Double(value)
     }
 }

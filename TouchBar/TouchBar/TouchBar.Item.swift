@@ -3,12 +3,12 @@ import Foundation
 extension TouchBar {
     public class Item: NSView {
 
-        public enum Alignment {
+        enum Alignment {
             case left
             case right
         }
 
-        public let alignment: Alignment
+        let alignment: Alignment
 
 
         init(alignment: Alignment, width: CGFloat) {
@@ -16,20 +16,23 @@ extension TouchBar {
 
             super.init(frame: NSRect(x: 0, y: 0, width: width, height: NSTouchBar.size.height))
             
-            set(width: width)
+            setWidth(width)
         }
 
         required init?(coder: NSCoder) { fatalError() }
 
 
-        public func set(width: CGFloat, animated: Bool = false) {
-            NSView.animate(withDuration: animated ? animationDuration : 0) { _ in
+        func setWidth(_ width: CGFloat, animated: Bool = false) {
+            NSView.animate(withDuration: animated ? Constants.animationDuration : 0, changes: { _ in
                 animator().frame.size.width = width
+            }, completionHandler: {
                 NotificationCenter.default.post(
-                    name: Notification.touchBarItemWidthDidChange,
+                    name: .touchBarItemWidthDidChange,
                     object: nil
                 )
-            }
+            })
         }
+
+        func update() {}
     }
 }

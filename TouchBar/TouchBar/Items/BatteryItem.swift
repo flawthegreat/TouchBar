@@ -13,7 +13,7 @@ class BatteryItem: TouchBar.Item {
 
     init(alignment: Alignment) {
         horizontalPadding = -3.5
-        verticalOffset = -3.0
+        verticalOffset = -3
         
         percentage = NSTextField(frame: NSRect(
             x: horizontalPadding,
@@ -51,9 +51,10 @@ class BatteryItem: TouchBar.Item {
         )
 
         let context = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        let source = IOPSNotificationCreateRunLoopSource({ ctx in
-            guard let context = ctx else { return }
-            Unmanaged<BatteryItem>.fromOpaque(context).takeUnretainedValue().update()
+        let source = IOPSNotificationCreateRunLoopSource({ context in
+            guard context != nil else { return }
+
+            Unmanaged<BatteryItem>.fromOpaque(context!).takeUnretainedValue().update()
         }, context).takeRetainedValue()
         CFRunLoopAddSource(RunLoop.current.getCFRunLoop(), source, .defaultMode)
 
@@ -65,7 +66,7 @@ class BatteryItem: TouchBar.Item {
 
 
     @objc
-    private func update() {
+    override func update() {
         let snapshot = IOPSCopyPowerSourcesInfo().takeRetainedValue()
         for powerSource in IOPSCopyPowerSourcesList(snapshot).takeRetainedValue() as Array {
             let info = IOPSGetPowerSourceDescription(
@@ -84,7 +85,7 @@ class BatteryItem: TouchBar.Item {
 
                 icon.frame.origin.x = percentage.frame.width - 6
 
-                set(width: percentage.frame.width + icon.frame.width - 5)
+                setWidth(percentage.frame.width + icon.frame.width - 5)
 
                 indicator.frame.size.width = max(2, 0.22 * CGFloat(capacity))
 

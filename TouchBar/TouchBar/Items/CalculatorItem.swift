@@ -8,7 +8,6 @@ class CalculatorItem: TouchBar.Button {
 
     override init(alignment: Alignment) {
         isRunning = false
-        applicationName = nil
 
         super.init(alignment: alignment)
 
@@ -18,8 +17,8 @@ class CalculatorItem: TouchBar.Button {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(applicationDidTerminate),
-            name: Notification.touchBarApplicationDidTerminate,
+            selector: #selector(applicationWillTerminate),
+            name: .touchBarApplicationWillTerminate,
             object: nil
         )
     }
@@ -40,7 +39,7 @@ class CalculatorItem: TouchBar.Button {
     }
 
     @objc
-    private func applicationDidTerminate() {
+    private func applicationWillTerminate() {
         if TouchBar.shared.runningApplication?.name == applicationName { isRunning = false }
     }
 }

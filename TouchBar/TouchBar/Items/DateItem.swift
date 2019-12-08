@@ -5,15 +5,14 @@ class DateItem: TouchBar.Item {
     private let horizontalPadding: CGFloat
     private let verticalOffset: CGFloat
 
-    private var timer: Timer?
     private let label: NSTextField
+    private var timer: Timer?
 
 
     init(alignment: Alignment) {
         horizontalPadding = -3.5
-        verticalOffset = -3.0
+        verticalOffset = -3
 
-        timer = nil
         label = NSTextField(frame: NSRect(
             x: horizontalPadding,
             y: verticalOffset,
@@ -66,6 +65,6 @@ class DateItem: TouchBar.Item {
         label.stringValue = Date().string(withFormat: "E d MMM H:mm")
         label.sizeToFit()
         label.frame.size.height = NSTouchBar.size.height
-        set(width: label.frame.width + horizontalPadding * 2.0, animated: animated)
+        setWidth(label.frame.width + horizontalPadding * 2, animated: animated)
     }
 }

@@ -3,21 +3,23 @@ import Foundation
 extension TouchBar {
     class Button: Item {
 
+        private let button: NSButton
+
         private var touchX: CGFloat?
 
         private var leftArrow: NSTextField
         private var rightArrow: NSTextField
 
-        private let button: NSButton
-
         public var title: String {
             get { return button.title }
             set { button.title = newValue }
         }
+
         public var image: NSImage? {
             get { return button.image }
             set { button.image = newValue }
         }
+
         public var target: Item?
         public var action: Selector?
         public var swipeLeftAction: Selector?
@@ -25,14 +27,12 @@ extension TouchBar {
 
 
         init(alignment: Alignment) {
-            touchX = nil
-
             leftArrow = NSTextField(frame: NSRect(
-                origin: CGPoint(x: 0, y: 1.0),
+                origin: CGPoint(x: 0, y: 1),
                 size: CGSize(width: NSTouchBar.buttonWidth * 0.25, height: NSTouchBar.size.height)
             ))
             rightArrow = NSTextField(frame: NSRect(
-                origin: CGPoint(x: NSTouchBar.buttonWidth * 0.75, y: 1.0),
+                origin: CGPoint(x: NSTouchBar.buttonWidth * 0.75, y: 1),
                 size: leftArrow.frame.size
             ))
 
@@ -43,21 +43,17 @@ extension TouchBar {
                 height: NSTouchBar.size.height
             ))
 
-            target = nil
-            swipeLeftAction = nil
-            swipeRightAction = nil
-
             super.init(alignment: alignment, width: NSTouchBar.buttonWidth)
 
             leftArrow.textColor = .white
-            leftArrow.font = .systemFont(ofSize: 18.0)
+            leftArrow.font = .systemFont(ofSize: 18)
             leftArrow.stringValue = "􀆒"
-            leftArrow.alphaValue = 0.0
+            leftArrow.alphaValue = 0
 
             rightArrow.textColor = .white
-            rightArrow.font = .systemFont(ofSize: 18.0)
+            rightArrow.font = .systemFont(ofSize: 18)
             rightArrow.stringValue = "􀆓"
-            rightArrow.alphaValue = 0.0
+            rightArrow.alphaValue = 0
 
             button.bezelStyle = .rounded
             button.font = .systemFont(ofSize: NSTouchBar.fontSize)
@@ -81,31 +77,33 @@ extension TouchBar {
         override func touchesEnded(with event: NSEvent) {
             super.touchesEnded(with: event)
 
-            guard touchX != nil else { return }
-            if let x = event.touches(matching: .ended, in: self).first?.location(in: self).x {
-                if x - touchX! > swipeThreshold && swipeRightAction != nil {
-                    target?.perform(swipeRightAction)
-                    NSView.animate(withDuration: animationDuration, changes: { _ in
-                        rightArrow.animator().alphaValue = 1.0
-                    }, completionHandler: {
-                        NSView.animate(withDuration: animationDuration) { _ in
-                            self.rightArrow.animator().alphaValue = 0.0
-                        }
-                    })
-                } else if touchX! - x > swipeThreshold && swipeLeftAction != nil {
-                    target?.perform(swipeLeftAction)
-                    NSView.animate(withDuration: animationDuration, changes: { _ in
-                        leftArrow.animator().alphaValue = 1.0
-                    }, completionHandler: {
-                        NSView.animate(withDuration: animationDuration) { _ in
-                            self.leftArrow.animator().alphaValue = 0.0
-                        }
-                    })
-                } else if abs(touchX! - x) < swipeThreshold / 2.0 ||
-                    swipeLeftAction == nil && swipeRightAction == nil
-                {
-                    target?.perform(action)
-                }
+            guard
+                touchX != nil,
+                let x = event.touches(matching: .ended, in: self).first?.location(in: self).x
+            else { return }
+
+            if x - touchX! > Constants.swipeThreshold && swipeRightAction != nil {
+                target?.perform(swipeRightAction)
+                NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
+                    rightArrow.animator().alphaValue = 1
+                }, completionHandler: {
+                    NSView.animate(withDuration: Constants.animationDuration) { _ in
+                        self.rightArrow.animator().alphaValue = 0
+                    }
+                })
+            } else if touchX! - x > Constants.swipeThreshold && swipeLeftAction != nil {
+                target?.perform(swipeLeftAction)
+                NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
+                    leftArrow.animator().alphaValue = 1
+                }, completionHandler: {
+                    NSView.animate(withDuration: Constants.animationDuration) { _ in
+                        self.leftArrow.animator().alphaValue = 0
+                    }
+                })
+            } else if abs(touchX! - x) < Constants.swipeThreshold / 2 ||
+                swipeLeftAction == nil && swipeRightAction == nil
+            {
+                target?.perform(action)
             }
         }
     }

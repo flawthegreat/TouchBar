@@ -19,22 +19,19 @@ class CalculatorApplication: TouchBar.Application {
         init(x: CGFloat, title: String) {
             isChecked = false
 
-            parentTarget = nil
-            parentAction = nil
-
             super.init(frame: NSRect(
-                origin: CGPoint(x: x, y: 0.0),
+                origin: CGPoint(x: x, y: 0),
                 size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
             ))
 
             wantsLayer = true
-            layer?.borderWidth = 0.0
-            layer?.cornerRadius = 5.0
+            layer?.borderWidth = 0
+            layer?.cornerRadius = 5
             layer?.borderColor = .white
 
             bezelStyle = .rounded
             bezelColor = NSColor.systemOrange
-            font = .systemFont(ofSize: 17.0)
+            font = .systemFont(ofSize: 17)
 
             self.title = title
 
@@ -58,7 +55,7 @@ class CalculatorApplication: TouchBar.Application {
         }
 
         private func borderSetVisible(_ visible: Bool) {
-            layer?.borderWidth = visible ? 2.0 : 0.0
+            layer?.borderWidth = visible ? 2 : 0
         }
     }
 
@@ -87,8 +84,8 @@ class CalculatorApplication: TouchBar.Application {
 
 
     init() {
-        minNumberWidth = 150.0
-        pasteButtonWidth = 55.0
+        minNumberWidth = 150
+        pasteButtonWidth = 55
         width = 4 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap) + minNumberWidth +
             NSTouchBar.itemGap + pasteButtonWidth + 20
 
@@ -132,11 +129,9 @@ class CalculatorApplication: TouchBar.Application {
         fillingDecimalPlaces = false
         integerPlaces = 1
         decimalPlaces = 0
-        powerOfTen = 1.0
+        powerOfTen = 1
 
         operationIsChecked = false
-
-        eventMonitor = nil
 
         super.init(width: width, name: "com.flaw.touchBarApp.calculator")
 
@@ -153,14 +148,14 @@ class CalculatorApplication: TouchBar.Application {
         addButton.parentAction = #selector(updateCheckedOperation)
 
         currentNumberLabel.textColor = .white
-        currentNumberLabel.font = .systemFont(ofSize: 18.0)
+        currentNumberLabel.font = .systemFont(ofSize: 18)
         currentNumberLabel.alignment = .right
         currentNumberLabel.stringValue = "0"
         currentNumberLabel.target = self
         currentNumberLabel.action = #selector(copyNumber)
 
         previousNumberLabel.textColor = NSColor(white: 1, alpha: 0.7)
-        previousNumberLabel.font = .systemFont(ofSize: 18.0)
+        previousNumberLabel.font = .systemFont(ofSize: 18)
         previousNumberLabel.alignment = .right
         previousNumberLabel.stringValue = "0"
         previousNumberLabel.target = self
@@ -174,9 +169,9 @@ class CalculatorApplication: TouchBar.Application {
         pasteButton.action = #selector(pasteNumber)
 
         successfulCopyBackground.wantsLayer = true
-        successfulCopyBackground.layer?.cornerRadius = 5.0
+        successfulCopyBackground.layer?.cornerRadius = 5
         successfulCopyBackground.layer?.backgroundColor = NSColor.systemGreen.cgColor
-        successfulCopyBackground.alphaValue = 0.0
+        successfulCopyBackground.alphaValue = 0
         pasteButton.addSubview(successfulCopyBackground)
 
         eventMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: keyDown(with:))
@@ -206,7 +201,7 @@ class CalculatorApplication: TouchBar.Application {
 
         integerPlaces = 0
         decimalPlaces = 0
-        powerOfTen = 1.0
+        powerOfTen = 1
 
         for char in newValueString {
             if char == "." { break }
@@ -221,7 +216,7 @@ class CalculatorApplication: TouchBar.Application {
             for char in newValueString.reversed() {
                 if char == "." { break }
                 decimalPlaces += 1
-                powerOfTen *= 10.0
+                powerOfTen *= 10
                 if integerPlaces + decimalPlaces == 16 {
                     fillingDecimalPlaces = decimalPlaces > 0
                     while newValueString.count > 17 {
@@ -252,7 +247,7 @@ class CalculatorApplication: TouchBar.Application {
         }
 
         if divideButton.isChecked {
-            guard currentNumber != 0.0 else { return }
+            guard currentNumber != 0 else { return }
             apply(newValue: previousNumber / currentNumber)
         } else if multiplyButton.isChecked {
             apply(newValue: previousNumber * currentNumber)
@@ -265,16 +260,16 @@ class CalculatorApplication: TouchBar.Application {
 
     private func digitForKeyCode(_ keyCode: UInt16) -> Double? {
         switch keyCode {
-        case 29: return 0.0
-        case 18: return 1.0
-        case 19: return 2.0
-        case 20: return 3.0
-        case 21: return 4.0
-        case 23: return 5.0
-        case 22: return 6.0
-        case 26: return 7.0
-        case 28: return 8.0
-        case 25: return 9.0
+        case 29: return 0
+        case 18: return 1
+        case 19: return 2
+        case 20: return 3
+        case 21: return 4
+        case 23: return 5
+        case 22: return 6
+        case 26: return 7
+        case 28: return 8
+        case 25: return 9
         default: return nil
         }
     }
@@ -299,7 +294,7 @@ class CalculatorApplication: TouchBar.Application {
                     fillingDecimalPlaces = false
                 } else {
                     decimalPlaces -= 1
-                    powerOfTen /= 10.0
+                    powerOfTen /= 10
                 }
             } else {
                 integerPlaces -= 1
@@ -321,9 +316,10 @@ class CalculatorApplication: TouchBar.Application {
         }
 
         if keyCode == 27 {
-            if currentNumber != 0.0 {
+            if currentNumber != 0 {
                 currentNumberLabel.stringValue = formattedString(from: -currentNumber)
             }
+
             return nil
         }
 
@@ -335,17 +331,17 @@ class CalculatorApplication: TouchBar.Application {
 
         guard let digit = digitForKeyCode(keyCode) else { return nil }
 
-        let sign = currentNumber < 0 ? -1.0 : 1.0
+        let sign: Double = currentNumber < 0 ? -1 : 1
         currentNumber = abs(currentNumber)
 
         if !fillingDecimalPlaces {
-            if currentNumber != 0.0 && digit != 0.0 { integerPlaces += 1 }
-            currentNumber *= 10.0
+            if currentNumber != 0 && digit != 0 { integerPlaces += 1 }
+            currentNumber *= 10
             currentNumber += digit
         } else {
             if decimalPlaces == 15 { return nil }
             decimalPlaces += 1
-            powerOfTen *= 10.0
+            powerOfTen *= 10
             currentNumber += digit / powerOfTen
         }
 
@@ -363,11 +359,11 @@ class CalculatorApplication: TouchBar.Application {
     }
 
     private func getCurrentNumber() -> Double {
-        return Double(currentNumberLabel.stringValue) ?? 0.0
+        return Double(currentNumberLabel.stringValue) ?? 0
     }
 
     private func getPreviousNumber() -> Double {
-        return Double(previousNumberLabel.stringValue) ?? 0.0
+        return Double(previousNumberLabel.stringValue) ?? 0
     }
 
     @objc
@@ -388,16 +384,16 @@ class CalculatorApplication: TouchBar.Application {
         integerPlaces = 1
         decimalPlaces = 0
         fillingDecimalPlaces = false
-        powerOfTen = 1.0
+        powerOfTen = 1
     }
 
     @objc
     private func copyNumber() {
-        NSView.animate(withDuration: animationDuration, changes: { _ in
+        NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
             successfulCopyBackground.animator().alphaValue = 0.8
         }, completionHandler: {
-            NSView.animate(withDuration: animationDuration) { _ in
-                self.successfulCopyBackground.animator().alphaValue = 0.0
+            NSView.animate(withDuration: Constants.animationDuration) { _ in
+                self.successfulCopyBackground.animator().alphaValue = 0
             }
         })
         NSPasteboard.general.declareTypes([.string], owner: nil)
@@ -412,7 +408,7 @@ class CalculatorApplication: TouchBar.Application {
         }
     }
 
-    override func updateContentsToMatchWidth(_ width: CGFloat) {
+    override func updateWidth(_ width: CGFloat) {
         if self.width > width {
             pasteButton.frame.origin.x = self.width - pasteButtonWidth
             currentNumberLabel.frame.size.width = minNumberWidth
@@ -423,11 +419,11 @@ class CalculatorApplication: TouchBar.Application {
             previousNumberLabel.frame.size = currentNumberLabel.animator().frame.size
         }
         frame.size.width = max(width, self.width)
-        super.updateContentsToMatchWidth(width)
     }
 
     override func applicationWillTerminate() {
         guard eventMonitor != nil else { return }
+
         NSEvent.removeMonitor(eventMonitor!)
         eventMonitor = nil
     }

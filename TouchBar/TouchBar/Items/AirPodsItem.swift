@@ -4,7 +4,7 @@ import IOBluetooth
 class AirPodsItem: TouchBar.Item {
 
     private let addressString: String = "fc-1d-43-dd-6b-3d"
-    private let width: CGFloat = 22.0
+    private let width: CGFloat = 22
 
     private let button: NSButton
     private let icon: NSImageView
@@ -23,7 +23,6 @@ class AirPodsItem: TouchBar.Item {
         ))
         icon = NSImageView(frame: NSRect(x: 0, y: 5.8, width: width, height: 18))
         flash = NSView(frame: button.bounds)
-        airPods = nil
 
         super.init(alignment: alignment, width: width)
 
@@ -32,9 +31,9 @@ class AirPodsItem: TouchBar.Item {
         button.bezelStyle = .regularSquare
 
         flash.wantsLayer = true
-        flash.layer?.cornerRadius = 5.0
+        flash.layer?.cornerRadius = 5
         flash.layer?.backgroundColor = NSColor.controlColor.cgColor
-        flash.alphaValue = 0.0
+        flash.alphaValue = 0
         button.addSubview(flash)
 
         icon.image = NSImage(named: "AirPodsIcon")
@@ -58,7 +57,7 @@ class AirPodsItem: TouchBar.Item {
 
     @objc
     private func updateIcon() {
-        icon.alphaValue = airPods?.isConnected() ?? false ? 1.0 : 0.5
+        icon.alphaValue = airPods?.isConnected() ?? false ? 1 : 0.5
     }
 
     @objc
@@ -73,7 +72,9 @@ class AirPodsItem: TouchBar.Item {
                 {
                     airPods = IOBluetoothDevice(addressString: addressString)
                     updateIcon()
+
                     guard airPods != nil else { return }
+
                     airPods?.register(
                         forDisconnectNotification: self,
                         selector: #selector(updateIcon)
@@ -88,24 +89,20 @@ class AirPodsItem: TouchBar.Item {
 
         guard updateConnection else { return }
 
-        if airPods!.isConnected() {
-            airPods?.closeConnection()
-        } else {
-            airPods?.openConnection()
-        }
+        _ = airPods!.isConnected() ? airPods?.closeConnection() : airPods?.openConnection()
     }
 
     override func touchesBegan(with event: NSEvent) {
         super.touchesBegan(with: event)
 
-        flash.alphaValue = 1.0
+        flash.alphaValue = 1
     }
 
     override func touchesEnded(with event: NSEvent) {
         super.touchesEnded(with: event)
 
-        NSView.animate(withDuration: animationDuration * 2) { _ in
-            self.flash.animator().alphaValue = 0.0
+        NSView.animate(withDuration: Constants.animationDuration * 2) { _ in
+            self.flash.animator().alphaValue = 0
         }
     }
 }

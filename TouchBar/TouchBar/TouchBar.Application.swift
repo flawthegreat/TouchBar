@@ -1,14 +1,5 @@
 import Foundation
 
-extension Notification {
-    static let touchBarApplicationDidTerminate = Notification.Name(
-        "touchBarApplicatioDidTerminate"
-    )
-    static let touchBarApplicationWillTerminate = Notification.Name(
-        "touchBarApplicatioWillTerminate"
-    )
-}
-
 extension TouchBar {
     class Application: NSView {
 
@@ -25,16 +16,19 @@ extension TouchBar {
         required init?(coder: NSCoder) { fatalError() }
 
         deinit {
-            print("Application \(name) was successfully terminated")
+            print("Application \(name) was terminated")
         }
 
 
         public func updateContentsToMatchWidth(_ width: CGFloat) {
+            updateWidth(width)
             NotificationCenter.default.post(
-                name: Notification.touchBarApplicationDidChangeWidth,
+                name: .touchBarApplicationDidChangeWidth,
                 object: nil
             )
         }
+
+        public func updateWidth(_ width: CGFloat) {}
 
         public func applicationWillTerminate() {}
     }

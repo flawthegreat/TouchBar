@@ -5,6 +5,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
     static let shared = TouchBar()
     
     private let touchBar: NSTouchBar
+    private var isVisible: Bool
     private let view: View
     private var frontmostApplicationBundleIdentifier: String? {
         return NSWorkspace.shared.frontmostApplication?.bundleIdentifier
@@ -16,6 +17,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
 
     private override init() {
         touchBar = NSTouchBar()
+        isVisible = false
         view = View()
         items = []
 
@@ -24,7 +26,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
         touchBar.delegate = self
         touchBar.defaultItemIdentifiers = [.viewItem]
 
-        view.setSwipeAction(target: self, action: #selector(hide))
+        view.setSwipeAction(#selector(hide), target: self)
 
         NSTouchBarItem.addSystemTrayItem(ControlStripItem(
             target: self,
@@ -62,20 +64,28 @@ class TouchBar: NSObject, NSTouchBarDelegate {
     private func activeApplicationDidChange() {
         if frontmostApplicationBundleIdentifier != Bundle.main.bundleIdentifier {
             dimApplication()
+        } else if !isVisible {
+            reloadControlStripButton()
         }
     }
 
     @objc
     public func show() {
+        items.forEach { $0.update() }
+
         touchBar.controlStripSetVisible(false)
         NSTouchBar.presentSystemModalTouchBar(
             touchBar,
             systemTrayItemIdentifier: .controlStripItem
         )
+
+        isVisible = true
     }
 
     @objc
     public func hide() {
+        isVisible = false
+
         touchBar.controlStripSetVisible(true)
         NSTouchBar.minimizeSystemModalTouchBar(touchBar)
     }

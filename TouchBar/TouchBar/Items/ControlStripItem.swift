@@ -26,7 +26,7 @@ class ControlStripItem: NSCustomTouchBarItem {
     }
 
 
-    init(target: Any?, action: Selector?) {
+    init(target: NSObject?, action: Selector?) {
         super.init(identifier: .controlStripItem)
 
         view = NSButton(title: "􀏪", target: target, action: action)
