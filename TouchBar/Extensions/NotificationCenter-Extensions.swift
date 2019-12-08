@@ -1,6 +1,4 @@
-import Foundation
-
-public extension NotificationCenter {
+extension NotificationCenter {
     func addObserver(
         _ observer: Any,
         selector: Selector,

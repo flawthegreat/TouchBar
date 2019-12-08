@@ -1,30 +1,23 @@
-import Foundation
-
 extension TouchBar {
-    public class View: NSView {
+    class View: NSView {
 
-        private static let swipeLeftBound: CGFloat = NSTouchBar.size.width - 100
+        private static let swipeLeftBound = NSTouchBar.size.width - 100
 
-        private var target: TouchBar?
+        private weak var target: TouchBar?
         private var action: Selector?
         private var touchX: CGFloat?
+        private var offset = Offset.zero
 
-        private var offset: Offset
-
-        public let applicationView: ApplicationView
+        let applicationView = ApplicationView(x: 0, width: NSTouchBar.size.width)
 
 
         init() {
-            applicationView = ApplicationView(x: 0, width: NSTouchBar.size.width)
-
-            offset = .zero
-
             super.init(frame: NSRect(origin: .zero, size: NSTouchBar.size))
 
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(updateLayout(animated:)),
-                name: .touchBarItemWidthDidChange,
+                name: .touchBarItemWidthWillChange,
                 object: nil
             )
 
@@ -50,7 +43,7 @@ extension TouchBar {
         }
 
         @objc
-        public func updateLayout(animated: Bool = false) {
+        func updateLayout(animated: Bool = false) {
             NSView.animate(withDuration: animated ? Constants.animationDuration : 0) { _ in
                 offset = .zero
 
@@ -61,8 +54,6 @@ extension TouchBar {
                     } else if item.alignment == .right {
                         item.animator().frame.origin.x = NSTouchBar.size.width - item.animator().frame.width - offset.right
                         offset.right += item.animator().frame.width + NSTouchBar.itemGap
-                    } else {
-                        fatalError("Unknown item alignment")
                     }
                 }
 
@@ -70,12 +61,12 @@ extension TouchBar {
             }
         }
 
-        public func replaceItems(with items: [Item]) {
+        func replaceItems(with items: [Item]) {
             for item in subviews where item is Item { item.removeFromSuperview() }
             items.forEach { addItem($0) }
         }
 
-        public func addItem(_ item: Item) {
+        func addItem(_ item: Item) {
             guard offset.left + item.frame.width + offset.right - NSTouchBar.itemGap <= NSTouchBar.size.width
             else { return }
 
@@ -85,15 +76,13 @@ extension TouchBar {
             } else if item.alignment == .right {
                 item.frame.origin.x = NSTouchBar.size.width - item.frame.width - offset.right
                 offset.right += item.frame.width + NSTouchBar.itemGap
-            } else {
-                fatalError("Unknown item alignment")
             }
 
             addSubview(item)
             updateApplicationViewWidth()
         }
 
-        public func setSwipeAction(_ action: Selector?, target: TouchBar?) {
+        func setSwipeAction(_ action: Selector?, target: TouchBar?) {
             self.target = target
             self.action = action
         }

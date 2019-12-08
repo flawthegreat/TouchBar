@@ -1,5 +1,3 @@
-import Foundation
-
 struct Offset {
     static let zero = Self()
 

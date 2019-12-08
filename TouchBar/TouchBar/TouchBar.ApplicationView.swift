@@ -1,18 +1,12 @@
-import Foundation
-
 extension TouchBar {
     class ApplicationView: NSView {
 
-        private var isDimmed: Bool
+        private var isDimmed = false
 
-        public private(set) var application: Application?
+        private(set) var application: Application?
 
         
         init(x: CGFloat, width: CGFloat) {
-            isDimmed = false
-
-            application = nil
-
             super.init(frame: NSRect(x: x, y: 0, width: width, height: NSTouchBar.size.height))
 
             NotificationCenter.default.addObserver(
@@ -28,10 +22,10 @@ extension TouchBar {
 
         @objc
         private func applicationViewDidChangeWidth() {
-            application?.updateContentsToMatchWidth(animator().frame.width)
+            application?.updateWidth(frame.width)
         }
 
-        public func dimApplication() {
+        func dimApplication() {
             guard application != nil else { return }
 
             isDimmed = true
@@ -40,7 +34,7 @@ extension TouchBar {
             }
         }
 
-        public func makeApplicationActive() {
+        func makeApplicationActive() {
             NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
                 application?.animator().alphaValue = 1
             }, completionHandler: {
@@ -70,33 +64,26 @@ extension TouchBar {
             }, completionHandler: callback)
         }
 
-        public func runApplication(_ application: Application) {
+        func runApplication(_ application: Application) {
             application.alphaValue = 0
 
-            if self.application != nil {
-                terminateApplication {
-                    self.application = application
-                    self.application?.frame.size = self.frame.size
-                    self.applicationViewDidChangeWidth()
-
-                    self.addSubview(self.application!)
-
-                    self.showApplication()
-                }
-            } else {
+            let runApplication = {
                 self.application = application
                 self.application?.frame.size = self.frame.size
-                applicationViewDidChangeWidth()
+                self.applicationViewDidChangeWidth()
 
-                addSubview(self.application!)
+                self.addSubview(self.application!)
 
-                showApplication()
+                self.showApplication()
             }
+
+            if self.application != nil { terminateApplication(completionHandler: runApplication) }
+            else { runApplication() }
 
             makeApplicationActive()
         }
 
-        public func terminateApplication(completionHandler callback: @escaping () -> Void = {}) {
+        func terminateApplication(completionHandler callback: @escaping () -> Void = {}) {
             guard application != nil else { return }
 
             hideApplication {

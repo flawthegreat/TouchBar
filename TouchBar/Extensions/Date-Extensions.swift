@@ -1,6 +1,4 @@
-import Foundation
-
-public extension Date {
+extension Date {
     func string(withFormat format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format

@@ -1,13 +1,9 @@
-import Foundation
-
 class VolumeItem: TouchBar.Button {
 
-    private var previousVolume: Float
+    private var previousVolume = SoundManager.shared.volumeLevel
 
 
     override init(alignment: Alignment) {
-        previousVolume = SoundManager.shared.volumeLevel
-
         super.init(alignment: alignment)
 
         DistributedNotificationCenter.default.addObserver(

@@ -1,12 +1,10 @@
-import Foundation
-
-public extension NSTouchBarItem.Identifier {
+extension NSTouchBarItem.Identifier {
     static let controlStripItem = Self("com.flaw.controlStripItem")
     static let viewItem = Self("com.flaw.viewItem")
 }
 
-public extension NSTouchBar {
-    static let size: NSSize = NSSize(width: 1085, height: 30)
+extension NSTouchBar {
+    static let size = NSSize(width: 1085, height: 30)
     static let itemGap: CGFloat = 10
     static let fontSize: CGFloat = 15
     static let buttonWidth: CGFloat = 72

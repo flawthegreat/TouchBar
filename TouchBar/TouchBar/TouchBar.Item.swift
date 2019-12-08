@@ -1,12 +1,7 @@
-import Foundation
-
 extension TouchBar {
-    public class Item: NSView {
+    class Item: NSView {
 
-        enum Alignment {
-            case left
-            case right
-        }
+        enum Alignment { case left, right }
 
         let alignment: Alignment
 
@@ -25,9 +20,8 @@ extension TouchBar {
         func setWidth(_ width: CGFloat, animated: Bool = false) {
             NSView.animate(withDuration: animated ? Constants.animationDuration : 0, changes: { _ in
                 animator().frame.size.width = width
-            }, completionHandler: {
                 NotificationCenter.default.post(
-                    name: .touchBarItemWidthDidChange,
+                    name: .touchBarItemWidthWillChange,
                     object: nil
                 )
             })

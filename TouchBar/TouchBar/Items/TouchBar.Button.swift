@@ -1,48 +1,40 @@
-import Foundation
-
 extension TouchBar {
     class Button: Item {
 
-        private let button: NSButton
+        private let button = NSButton(frame: NSRect(
+            origin: .zero,
+            size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
+        ))
+
+        private let leftArrow = NSTextField(frame: NSRect(
+            origin: CGPoint(x: 0, y: 1),
+            size: CGSize(width: NSTouchBar.buttonWidth * 0.25, height: NSTouchBar.size.height)
+        ))
+
+        private let rightArrow = NSTextField(frame: NSRect(
+            origin: CGPoint(x: NSTouchBar.buttonWidth * 0.75, y: 1),
+            size: CGSize(width: NSTouchBar.buttonWidth * 0.25, height: NSTouchBar.size.height)
+        ))
 
         private var touchX: CGFloat?
 
-        private var leftArrow: NSTextField
-        private var rightArrow: NSTextField
-
-        public var title: String {
-            get { return button.title }
+        var title: String {
+            get { button.title }
             set { button.title = newValue }
         }
 
-        public var image: NSImage? {
-            get { return button.image }
+        var image: NSImage? {
+            get { button.image }
             set { button.image = newValue }
         }
 
-        public var target: Item?
-        public var action: Selector?
-        public var swipeLeftAction: Selector?
-        public var swipeRightAction: Selector?
+        var target: Item?
+        var action: Selector?
+        var swipeLeftAction: Selector?
+        var swipeRightAction: Selector?
 
 
         init(alignment: Alignment) {
-            leftArrow = NSTextField(frame: NSRect(
-                origin: CGPoint(x: 0, y: 1),
-                size: CGSize(width: NSTouchBar.buttonWidth * 0.25, height: NSTouchBar.size.height)
-            ))
-            rightArrow = NSTextField(frame: NSRect(
-                origin: CGPoint(x: NSTouchBar.buttonWidth * 0.75, y: 1),
-                size: leftArrow.frame.size
-            ))
-
-            button = NSButton(frame: NSRect(
-                x: 0,
-                y: 0,
-                width: NSTouchBar.buttonWidth,
-                height: NSTouchBar.size.height
-            ))
-
             super.init(alignment: alignment, width: NSTouchBar.buttonWidth)
 
             leftArrow.textColor = .white
@@ -69,14 +61,10 @@ extension TouchBar {
 
 
         override func touchesBegan(with event: NSEvent) {
-            super.touchesBegan(with: event)
-
             touchX = event.touches(matching: .began, in: self).first?.location(in: self).x
         }
 
         override func touchesEnded(with event: NSEvent) {
-            super.touchesEnded(with: event)
-
             guard
                 touchX != nil,
                 let x = event.touches(matching: .ended, in: self).first?.location(in: self).x

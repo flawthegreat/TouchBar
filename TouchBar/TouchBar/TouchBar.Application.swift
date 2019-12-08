@@ -1,9 +1,7 @@
-import Foundation
-
 extension TouchBar {
     class Application: NSView {
 
-        public let name: String
+        let name: String
 
         init(width: CGFloat, name: String) {
             self.name = name
@@ -15,21 +13,19 @@ extension TouchBar {
 
         required init?(coder: NSCoder) { fatalError() }
 
-        deinit {
-            print("Application \(name) was terminated")
-        }
+        deinit { print("Application \(name) was terminated") }
 
 
-        public func updateContentsToMatchWidth(_ width: CGFloat) {
-            updateWidth(width)
+        func updateWidth(_ width: CGFloat) {
+            updateContentsToMatchWidth(width)
             NotificationCenter.default.post(
                 name: .touchBarApplicationDidChangeWidth,
                 object: nil
             )
         }
 
-        public func updateWidth(_ width: CGFloat) {}
+        func updateContentsToMatchWidth(_ width: CGFloat) {}
 
-        public func applicationWillTerminate() {}
+        func applicationWillTerminate() {}
     }
 }

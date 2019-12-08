@@ -1,5 +1,3 @@
-import Foundation
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 

@@ -1,18 +1,12 @@
-import Foundation
-
 class DateItem: TouchBar.Item {
 
-    private let horizontalPadding: CGFloat
-    private let verticalOffset: CGFloat
-
+    private let horizontalPadding: CGFloat = -3.5
+    private let verticalOffset: CGFloat = -3
     private let label: NSTextField
     private var timer: Timer?
 
 
     init(alignment: Alignment) {
-        horizontalPadding = -3.5
-        verticalOffset = -3
-
         label = NSTextField(frame: NSRect(
             x: horizontalPadding,
             y: verticalOffset,
@@ -20,7 +14,7 @@ class DateItem: TouchBar.Item {
             height: NSTouchBar.size.height
         ))
 
-        super.init(alignment: alignment, width: 10)
+        super.init(alignment: alignment, width: 0)
 
         label.textColor = .white
         label.font = .systemFont(ofSize: NSTouchBar.fontSize)

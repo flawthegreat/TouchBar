@@ -1,5 +1,3 @@
-import Foundation
-
 class BrightnessItem: TouchBar.Slider {
 
     override init(alignment: Alignment) {

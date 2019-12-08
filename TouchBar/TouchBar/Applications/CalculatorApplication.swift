@@ -1,5 +1,3 @@
-import Foundation
-
 class CalculatorApplication: TouchBar.Application {
 
     private class CopyTextField: NSTextField {
@@ -11,14 +9,12 @@ class CalculatorApplication: TouchBar.Application {
 
     private class OperationButton: NSButton {
 
-        public private(set) var isChecked: Bool
+        private(set) var isChecked: Bool = false
 
-        public weak var parentTarget: NSView?
-        public var parentAction: Selector?
+        weak var parentTarget: NSView?
+        var parentAction: Selector?
 
         init(x: CGFloat, title: String) {
-            isChecked = false
-
             super.init(frame: NSRect(
                 origin: CGPoint(x: x, y: 0),
                 size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
@@ -42,7 +38,7 @@ class CalculatorApplication: TouchBar.Application {
         required init?(coder: NSCoder) { fatalError() }
 
 
-        public func uncheck() {
+        func uncheck() {
             isChecked = false
             borderSetVisible(false)
         }
@@ -59,52 +55,49 @@ class CalculatorApplication: TouchBar.Application {
         }
     }
 
-    private let minNumberWidth: CGFloat
-    private let pasteButtonWidth: CGFloat
+    private let minNumberWidth: CGFloat = 150
+    private let pasteButtonWidth: CGFloat = 55
     private let width: CGFloat
 
-    private let divideButton: OperationButton
-    private let multiplyButton: OperationButton
-    private let subtractButton: OperationButton
-    private let addButton: OperationButton
+    private let divideButton = OperationButton(
+        x: 0,
+        title: "􀅿"
+    )
+
+    private let multiplyButton = OperationButton(
+        x: NSTouchBar.buttonWidth + NSTouchBar.itemGap,
+        title: "􀅾"
+    )
+
+    private let subtractButton = OperationButton(
+        x: 2 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
+        title: "􀅽"
+    )
+
+    private let addButton = OperationButton(
+        x: 3 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
+        title: "􀅼"
+    )
+
     private let currentNumberLabel: NSTextField
     private var previousNumberLabel: NSTextField
     private let pasteButton: NSButton
 
-    private var fillingDecimalPlaces: Bool
-    private var integerPlaces: Int
-    private var decimalPlaces: Int
-    private var powerOfTen: Double
+    private var fillingDecimalPlaces = false
+    private var integerPlaces = 1
+    private var decimalPlaces = 0
+    private var powerOfTen = 1.0
+
+    private var operationIsChecked = false
 
     private var successfulCopyBackground: NSView
-
-    private var operationIsChecked: Bool
 
     private var eventMonitor: Any?
 
 
     init() {
-        minNumberWidth = 150
-        pasteButtonWidth = 55
         width = 4 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap) + minNumberWidth +
             NSTouchBar.itemGap + pasteButtonWidth + 20
-
-        divideButton = OperationButton(
-            x: 0,
-            title: "􀅿"
-        )
-        multiplyButton = OperationButton(
-            x: NSTouchBar.buttonWidth + NSTouchBar.itemGap,
-            title: "􀅾"
-        )
-        subtractButton = OperationButton(
-            x: 2 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
-            title: "􀅽"
-        )
-        addButton = OperationButton(
-            x: 3 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
-            title: "􀅼"
-        )
 
         currentNumberLabel = NSTextField(frame: NSRect(
             x: 4 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
@@ -125,13 +118,6 @@ class CalculatorApplication: TouchBar.Application {
         ))
 
         successfulCopyBackground = NSView(frame: pasteButton.bounds)
-
-        fillingDecimalPlaces = false
-        integerPlaces = 1
-        decimalPlaces = 0
-        powerOfTen = 1
-
-        operationIsChecked = false
 
         super.init(width: width, name: "com.flaw.touchBarApp.calculator")
 
@@ -408,7 +394,7 @@ class CalculatorApplication: TouchBar.Application {
         }
     }
 
-    override func updateWidth(_ width: CGFloat) {
+    override func updateContentsToMatchWidth(_ width: CGFloat) {
         if self.width > width {
             pasteButton.frame.origin.x = self.width - pasteButtonWidth
             currentNumberLabel.frame.size.width = minNumberWidth

@@ -1,7 +1,5 @@
-import Foundation
-
-public extension Notification.Name {
-    static let touchBarItemWidthDidChange = Self("touchBarItemWidthDidChange")
+extension Notification.Name {
+    static let touchBarItemWidthWillChange = Self("touchBarItemWidthWillChange")
     static let touchBarApplicationViewDidChangeWidth = Self("touchBarApplicationViewDidChangeWidth")
     static let touchBarApplicationDidChangeWidth = Self("touchBarApplicationDidChangeWidth")
 

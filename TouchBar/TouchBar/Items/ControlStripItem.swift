@@ -1,5 +1,3 @@
-import Foundation
-
 class ControlStripItem: NSCustomTouchBarItem {
 
     private class ButtonBackground: NSView {
@@ -32,10 +30,8 @@ class ControlStripItem: NSCustomTouchBarItem {
         view = NSButton(title: "􀏪", target: target, action: action)
         if view.subviews.count > 0 {
             view.subviews[0] = ButtonBackground(frame: NSRect(
-                x: 0,
-                y: 0,
-                width: NSTouchBar.buttonWidth,
-                height: NSTouchBar.size.height
+                origin: .zero,
+                size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
             ))
         }
     }

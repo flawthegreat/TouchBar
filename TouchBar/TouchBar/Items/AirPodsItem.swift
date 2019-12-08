@@ -1,16 +1,12 @@
-import Foundation
 import IOBluetooth
 
 class AirPodsItem: TouchBar.Item {
 
-    private let addressString: String = "fc-1d-43-dd-6b-3d"
+    private let addressString = "fc-1d-43-dd-6b-3d"
     private let width: CGFloat = 22
-
     private let button: NSButton
     private let icon: NSImageView
-
     private var flash: NSView
-
     private var airPods: IOBluetoothDevice?
 
 
@@ -34,6 +30,7 @@ class AirPodsItem: TouchBar.Item {
         flash.layer?.cornerRadius = 5
         flash.layer?.backgroundColor = NSColor.controlColor.cgColor
         flash.alphaValue = 0
+
         button.addSubview(flash)
 
         icon.image = NSImage(named: "AirPodsIcon")
@@ -65,25 +62,27 @@ class AirPodsItem: TouchBar.Item {
         IOBluetoothPreferenceSetControllerPowerState(1)
 
         if airPods == nil {
-            IOBluetoothDevice.pairedDevices().forEach { device in
-                if let device = device as? IOBluetoothDevice,
-                   let addressString = device.addressString,
-                   addressString == self.addressString
-                {
-                    airPods = IOBluetoothDevice(addressString: addressString)
-                    updateIcon()
+            for device in IOBluetoothDevice.pairedDevices() {
+                guard
+                    let device = device as? IOBluetoothDevice,
+                    let addressString = device.addressString,
+                    addressString == self.addressString
+                else { continue }
 
-                    guard airPods != nil else { return }
+                airPods = IOBluetoothDevice(addressString: addressString)
+                updateIcon()
 
-                    airPods?.register(
-                        forDisconnectNotification: self,
-                        selector: #selector(updateIcon)
-                    )
-                    IOBluetoothDevice.register(
-                        forConnectNotifications: self,
-                        selector: #selector(updateIcon)
-                    )
-                }
+                guard airPods != nil else { continue }
+
+                airPods?.register(
+                    forDisconnectNotification: self,
+                    selector: #selector(updateIcon)
+                )
+
+                IOBluetoothDevice.register(
+                    forConnectNotifications: self,
+                    selector: #selector(updateIcon)
+                )
             }
         }
 
@@ -93,14 +92,10 @@ class AirPodsItem: TouchBar.Item {
     }
 
     override func touchesBegan(with event: NSEvent) {
-        super.touchesBegan(with: event)
-
         flash.alphaValue = 1
     }
 
     override func touchesEnded(with event: NSEvent) {
-        super.touchesEnded(with: event)
-
         NSView.animate(withDuration: Constants.animationDuration * 2) { _ in
             self.flash.animator().alphaValue = 0
         }

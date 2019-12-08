@@ -1,14 +1,10 @@
-import Foundation
-
 class CalculatorItem: TouchBar.Button {
 
-    private var isRunning: Bool
+    private var isRunning: Bool = false
     private var applicationName: String?
 
 
     override init(alignment: Alignment) {
-        isRunning = false
-
         super.init(alignment: alignment)
 
         title = "􀘽"
@@ -28,10 +24,12 @@ class CalculatorItem: TouchBar.Button {
 
     @objc
     private func toggleApplication() {
-        if isRunning {
+        if let runningApplicationName = TouchBar.shared.runningApplication?.name,
+           runningApplicationName == applicationName
+        {
             isRunning = false
             TouchBar.shared.terminateApplication()
-        } else {
+        } else if !isRunning {
             isRunning = true
             TouchBar.shared.runApplication(CalculatorApplication())
             applicationName = TouchBar.shared.runningApplication?.name

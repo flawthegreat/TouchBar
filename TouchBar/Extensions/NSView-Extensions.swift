@@ -1,6 +1,4 @@
-import Foundation
-
-public extension NSView {
+extension NSView {
     static func animate(
         withDuration duration: TimeInterval,
         changes: (NSAnimationContext) -> Void,

@@ -1,9 +1,8 @@
-import Foundation
 import AudioToolbox
 
 class SoundManager {
 
-    public static let shared = SoundManager()
+    static let shared = SoundManager()
 
     private var defaultOutputDeviceTypeSize = UInt32(MemoryLayout<AudioDeviceID>.size)
     private var muteStateTypeSize = UInt32(MemoryLayout<Int>.size)
@@ -29,7 +28,7 @@ class SoundManager {
 
     private var defaultOutputDevice = AudioDeviceID(0)
 
-    public var volumeLevel: Float {
+    var volumeLevel: Float {
         updateDefaultOutputDevice()
         unmute()
 
@@ -79,7 +78,7 @@ class SoundManager {
     }
 
 
-    public func setVolumeLevel(_ level: Float) {
+    func setVolumeLevel(_ level: Float) {
         updateDefaultOutputDevice()
         unmute()
 

@@ -1,33 +1,28 @@
-import Foundation
 import IOKit.ps
 
 class BatteryItem: TouchBar.Item {
 
-    private let horizontalPadding: CGFloat
-    private let verticalOffset: CGFloat
-
+    private let horizontalPadding: CGFloat = -3.5
+    private let verticalOffset: CGFloat = -3
     private let percentage: NSTextField
-    private let icon: NSImageView
-    private let indicator: NSView
+
+    private let icon = NSImageView(frame: NSRect(
+        origin: CGPoint(x: 0, y: 7),
+        size: CGSize(width: 32, height: 16)
+    ))
+
+    private let indicator = NSView(frame: NSRect(
+        origin: CGPoint(x: 3, y: 3),
+        size: CGSize(width: 2, height: 10)
+    ))
 
 
     init(alignment: Alignment) {
-        horizontalPadding = -3.5
-        verticalOffset = -3
-        
         percentage = NSTextField(frame: NSRect(
             x: horizontalPadding,
             y: verticalOffset,
             width: 0,
             height: NSTouchBar.size.height
-        ))
-        icon = NSImageView(frame: NSRect(
-            origin: CGPoint(x: 0, y: 7),
-            size: CGSize(width: 32, height: 16)
-        ))
-        indicator = NSView(frame: NSRect(
-            origin: CGPoint(x: 3, y: 3),
-            size: CGSize(width: 2, height: 10)
         ))
 
         super.init(alignment: alignment, width: 0)
@@ -74,38 +69,39 @@ class BatteryItem: TouchBar.Item {
                 powerSource
             ).takeUnretainedValue() as! [String: AnyObject]
 
-            if let capacity = info[kIOPSCurrentCapacityKey] as? Int,
-               let powerSourceState = info[kIOPSPowerSourceStateKey] as? String
-            {
-                let isCharging = powerSourceState != "Battery Power"
+            guard
+                let capacity = info[kIOPSCurrentCapacityKey] as? Int,
+                let powerSourceState = info[kIOPSPowerSourceStateKey] as? String
+            else { continue }
 
-                percentage.stringValue = "\(capacity)%"
-                percentage.sizeToFit()
-                percentage.frame.size.height = NSTouchBar.size.height
+            let isCharging = powerSourceState != "Battery Power"
 
-                icon.frame.origin.x = percentage.frame.width - 6
+            percentage.stringValue = "\(capacity)%"
+            percentage.sizeToFit()
+            percentage.frame.size.height = NSTouchBar.size.height
 
-                setWidth(percentage.frame.width + icon.frame.width - 5)
+            icon.frame.origin.x = percentage.frame.width - 6
 
-                indicator.frame.size.width = max(2, 0.22 * CGFloat(capacity))
+            setWidth(percentage.frame.width + icon.frame.width - 5)
 
-                if isCharging {
-                    indicator.layer?.backgroundColor = NSColor(
-                        red: 48.0 / 255.0,
-                        green: 209.0 / 255.0,
-                        blue: 88.0 / 255.0,
-                        alpha: 1
-                    ).cgColor
-                } else if capacity > 10 {
-                    indicator.layer?.backgroundColor = .white
-                } else {
-                    indicator.layer?.backgroundColor = NSColor(
-                        red: 255.0 / 255.0,
-                        green: 69.0 / 255.0,
-                        blue: 58.0 / 255.0,
-                        alpha: 1
-                    ).cgColor
-                }
+            indicator.frame.size.width = max(2, 0.22 * CGFloat(capacity))
+
+            if isCharging {
+                indicator.layer?.backgroundColor = NSColor(
+                    red: 48.0 / 255.0,
+                    green: 209.0 / 255.0,
+                    blue: 88.0 / 255.0,
+                    alpha: 1
+                ).cgColor
+            } else if capacity > 10 {
+                indicator.layer?.backgroundColor = .white
+            } else {
+                indicator.layer?.backgroundColor = NSColor(
+                    red: 255.0 / 255.0,
+                    green: 69.0 / 255.0,
+                    blue: 58.0 / 255.0,
+                    alpha: 1
+                ).cgColor
             }
         }
     }

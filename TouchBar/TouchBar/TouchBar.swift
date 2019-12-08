@@ -1,24 +1,19 @@
-import Foundation
-
 class TouchBar: NSObject, NSTouchBarDelegate {
 
     static let shared = TouchBar()
     
-    private let touchBar: NSTouchBar
-    private var isVisible: Bool
-    private let view: View
+    private let touchBar = NSTouchBar()
+    private let view = View()
+    private var isVisible = false
     private var frontmostApplicationBundleIdentifier: String? {
-        return NSWorkspace.shared.frontmostApplication?.bundleIdentifier
+        NSWorkspace.shared.frontmostApplication?.bundleIdentifier
     }
 
-    public var items: [Item] { didSet { view.replaceItems(with: items) } }
-    public var runningApplication: Application? { return view.applicationView.application }
+    var items: [Item] { didSet { view.replaceItems(with: items) } }
+    var runningApplication: Application? { view.applicationView.application }
 
 
     private override init() {
-        touchBar = NSTouchBar()
-        isVisible = false
-        view = View()
         items = []
 
         super.init()
@@ -28,11 +23,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
 
         view.setSwipeAction(#selector(hide), target: self)
 
-        NSTouchBarItem.addSystemTrayItem(ControlStripItem(
-            target: self,
-            action: #selector(show)
-        ))
-
+        NSTouchBarItem.addSystemTrayItem(ControlStripItem(target: self, action: #selector(show)))
         DFRElementSetControlStripPresenceForIdentifier(.controlStripItem, true)
 
         NSWorkspace.shared.notificationCenter.addObserver(
@@ -48,16 +39,38 @@ class TouchBar: NSObject, NSTouchBarDelegate {
     }
 
 
-    public func runApplication(_ application: Application) {
+    func runApplication(_ application: Application) {
         view.applicationView.runApplication(application)
     }
 
-    public func terminateApplication() {
+    func terminateApplication() {
         view.applicationView.terminateApplication()
     }
 
-    public func dimApplication() {
+    func dimApplication() {
         view.applicationView.dimApplication()
+    }
+
+    @objc
+    func show() {
+        items.forEach { $0.update() }
+
+        touchBar.controlStripSetVisible(false)
+        NSTouchBar.presentSystemModalTouchBar(touchBar, systemTrayItemIdentifier: .controlStripItem)
+
+        isVisible = true
+    }
+
+    @objc
+    func hide() {
+        isVisible = false
+
+        touchBar.controlStripSetVisible(true)
+        NSTouchBar.minimizeSystemModalTouchBar(touchBar)
+    }
+
+    func reloadControlStripButton() {
+        DFRElementSetControlStripPresenceForIdentifier(.controlStripItem, true)
     }
 
     @objc
@@ -69,39 +82,15 @@ class TouchBar: NSObject, NSTouchBarDelegate {
         }
     }
 
-    @objc
-    public func show() {
-        items.forEach { $0.update() }
-
-        touchBar.controlStripSetVisible(false)
-        NSTouchBar.presentSystemModalTouchBar(
-            touchBar,
-            systemTrayItemIdentifier: .controlStripItem
-        )
-
-        isVisible = true
-    }
-
-    @objc
-    public func hide() {
-        isVisible = false
-
-        touchBar.controlStripSetVisible(true)
-        NSTouchBar.minimizeSystemModalTouchBar(touchBar)
-    }
-
-    public func reloadControlStripButton() {
-        DFRElementSetControlStripPresenceForIdentifier(.controlStripItem, true)
-    }
-
     func touchBar(
         _: NSTouchBar,
         makeItemForIdentifier identifier: NSTouchBarItem.Identifier
     ) -> NSTouchBarItem? {
         switch identifier {
-        case .viewItem: return NSCustomTouchBarItem(identifier: .viewItem, view: view)
-        case .controlStripItem: return ControlStripItem(target: self, action: #selector(show))
-        default: return nil
+        case .viewItem:
+            return NSCustomTouchBarItem(identifier: .viewItem, view: view)
+        default:
+            return nil
         }
     }
 }
