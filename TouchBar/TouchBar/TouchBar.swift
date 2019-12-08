@@ -9,13 +9,11 @@ class TouchBar: NSObject, NSTouchBarDelegate {
         NSWorkspace.shared.frontmostApplication?.bundleIdentifier
     }
 
-    var items: [Item] { didSet { view.replaceItems(with: items) } }
+    var items: [Item] = [] { didSet { view.replaceItems(with: items) } }
     var runningApplication: Application? { view.applicationView.application }
 
 
     private override init() {
-        items = []
-
         super.init()
 
         touchBar.delegate = self
