@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -19,11 +19,10 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu id="KES-pQ-SDZ">
             <items>
-                <menuItem title="Touch Bar" id="Ngz-iA-3Yd">
+                <menuItem title="Touch Bar" state="on" id="Ngz-iA-3Yd">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
-                <menuItem title="Reload Control Strip button" id="sUW-lz-HBa">
-                    <modifierMask key="keyEquivalentModifierMask"/>
+                <menuItem title="Reload Control Strip button" keyEquivalent="r" id="sUW-lz-HBa">
                     <connections>
                         <action selector="reloadControlStripButton:" target="Voe-Tx-rLC" id="uBb-L8-vzI"/>
                     </connections>
