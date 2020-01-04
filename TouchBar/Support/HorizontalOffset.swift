@@ -1,4 +1,4 @@
-struct Offset {
+struct HorizontalOffset {
     static let zero = Self()
 
     var left: CGFloat = 0

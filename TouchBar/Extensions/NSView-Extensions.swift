@@ -1,4 +1,9 @@
 extension NSView {
+//    convenience init(width: CGFloat) {
+//        super.init(
+//    }
+
+
     static func animate(
         withDuration duration: TimeInterval,
         changes: (NSAnimationContext) -> Void,
@@ -10,10 +15,17 @@ extension NSView {
         }, completionHandler: completionHandler)
     }
 
-    static func animate(
-        withDuration duration: TimeInterval,
-        changes: (NSAnimationContext) -> Void
-    ) {
+    static func animate(withDuration duration: TimeInterval, changes: (NSAnimationContext) -> Void) {
         animate(withDuration: duration, changes: changes, completionHandler: nil)
+    }
+
+    func flash() {
+        NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
+            animator().alphaValue = 1
+        }, completionHandler: {
+            NSView.animate(withDuration: Constants.animationDuration) { _ in
+                self.animator().alphaValue = 0
+            }
+        })
     }
 }
