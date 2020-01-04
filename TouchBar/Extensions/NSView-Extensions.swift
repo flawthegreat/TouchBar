@@ -1,7 +1,7 @@
 extension NSView {
-//    convenience init(width: CGFloat) {
-//        super.init(
-//    }
+    convenience init(origin: CGPoint, width: CGFloat) {
+        self.init(frame: NSRect(origin: origin, size: CGSize(width: width, height: NSTouchBar.size.height)))
+    }
 
 
     static func animate(

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE144B8E23C0BDCF00A08B08 /* HorizontalOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */; };
 		CE14EE7A239CF89F009ABFD0 /* Notification.Name-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14EE79239CF89F009ABFD0 /* Notification.Name-Extensions.swift */; };
 		CE14EE7C239CFA45009ABFD0 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */; };
 		CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B8B237803DE002EA61A /* AppDelegate.swift */; };
 		CE274B8E237803E0002EA61A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE274B8D237803E0002EA61A /* Assets.xcassets */; };
 		CE274B91237803E0002EA61A /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE274B8F237803E0002EA61A /* Main.xib */; };
 		CE274B9F2378045B002EA61A /* TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B9E2378045B002EA61A /* TouchBar.swift */; };
-		CE274BA123780471002EA61A /* Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274BA023780471002EA61A /* Offset.swift */; };
 		CE274BA323780487002EA61A /* DateItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274BA223780487002EA61A /* DateItem.swift */; };
 		CE38C901239CF43B00F78380 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38C900239CF43B00F78380 /* Constants.swift */; };
 		CE38C904239CF48200F78380 /* NSView-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38C903239CF48200F78380 /* NSView-Extensions.swift */; };
@@ -25,6 +25,7 @@
 		CE59AA762378994200A08DBE /* AirPodsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA752378994200A08DBE /* AirPodsItem.swift */; };
 		CE59AA7C23793D4600A08DBE /* BrightnessItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */; };
 		CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6C593B2379F968001DDB05 /* VolumeItem.swift */; };
+		CE9829CF23C0987000CC3677 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9829CE23C0987000CC3677 /* Keyboard.swift */; };
 		CEA39A8523993F8A0063DB90 /* CoreBrightness.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE221BA323858E9100345581 /* CoreBrightness.framework */; };
 		CEA39A8823993F8B0063DB90 /* CoreDisplay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE221BA723858F5F00345581 /* CoreDisplay.framework */; };
 		CEA39A8A23993F8E0063DB90 /* DFRFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE477EA2237B595F0002913E /* DFRFoundation.framework */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalOffset.swift; sourceTree = "<group>"; };
 		CE14EE79239CF89F009ABFD0 /* Notification.Name-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name-Extensions.swift"; sourceTree = "<group>"; };
 		CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		CE221BA323858E9100345581 /* CoreBrightness.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBrightness.framework; path = ../../../../System/Library/PrivateFrameworks/CoreBrightness.framework; sourceTree = "<group>"; };
@@ -51,7 +53,6 @@
 		CE274B92237803E0002EA61A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE274B93237803E0002EA61A /* TouchBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TouchBar.entitlements; sourceTree = "<group>"; };
 		CE274B9E2378045B002EA61A /* TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.swift; sourceTree = "<group>"; };
-		CE274BA023780471002EA61A /* Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offset.swift; sourceTree = "<group>"; };
 		CE274BA223780487002EA61A /* DateItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateItem.swift; sourceTree = "<group>"; };
 		CE274BA5237804A9002EA61A /* TouchBarAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchBarAPI.h; sourceTree = "<group>"; };
 		CE274BA7237804C7002EA61A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		CE59AA752378994200A08DBE /* AirPodsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPodsItem.swift; sourceTree = "<group>"; };
 		CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessItem.swift; sourceTree = "<group>"; };
 		CE6C593B2379F968001DDB05 /* VolumeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeItem.swift; sourceTree = "<group>"; };
+		CE9829CE23C0987000CC3677 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		CEB99309237D4AB20011DB48 /* TouchBar.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.Item.swift; sourceTree = "<group>"; };
 		CEB9930D237D4B550011DB48 /* TouchBar.View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.View.swift; sourceTree = "<group>"; };
 		CEB9930F237D4C4E0011DB48 /* TouchBar-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TouchBar-Extensions.swift"; sourceTree = "<group>"; };
@@ -95,8 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				CE38C900239CF43B00F78380 /* Constants.swift */,
-				CE274BA023780471002EA61A /* Offset.swift */,
+				CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */,
 				CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */,
+				CE9829CE23C0987000CC3677 /* Keyboard.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				CE274B84237803DE002EA61A /* Sources */,
 				CE274B85237803DE002EA61A /* Frameworks */,
 				CE274B86237803DE002EA61A /* Resources */,
+				CEDB7D9223ACD1C500C49676 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -269,6 +273,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CEDB7D9223ACD1C500C49676 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -f -R ${BUILT_PRODUCTS_DIR}/$(PRODUCT_NAME) ${PROJECT_DIR}/Build\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CE274B84237803DE002EA61A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -276,6 +300,7 @@
 			files = (
 				CEC74981237DEEF500E41E60 /* TouchBar.Application.swift in Sources */,
 				CE38C904239CF48200F78380 /* NSView-Extensions.swift in Sources */,
+				CE144B8E23C0BDCF00A08B08 /* HorizontalOffset.swift in Sources */,
 				CE38C901239CF43B00F78380 /* Constants.swift in Sources */,
 				CEC7497B237DC34F00E41E60 /* CalculatorItem.swift in Sources */,
 				CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */,
@@ -285,13 +310,13 @@
 				CE14EE7A239CF89F009ABFD0 /* Notification.Name-Extensions.swift in Sources */,
 				CE59AA7C23793D4600A08DBE /* BrightnessItem.swift in Sources */,
 				CEB9930A237D4AB20011DB48 /* TouchBar.Item.swift in Sources */,
-				CE274BA123780471002EA61A /* Offset.swift in Sources */,
 				CEB9930E237D4B550011DB48 /* TouchBar.View.swift in Sources */,
 				CEC7497F237DED0400E41E60 /* TouchBar.ApplicationView.swift in Sources */,
 				CEC7497D237DC78400E41E60 /* TouchBar.Slider.swift in Sources */,
 				CE274BA323780487002EA61A /* DateItem.swift in Sources */,
 				CE14EE7C239CFA45009ABFD0 /* SoundManager.swift in Sources */,
 				CEB99310237D4C4E0011DB48 /* TouchBar-Extensions.swift in Sources */,
+				CE9829CF23C0987000CC3677 /* Keyboard.swift in Sources */,
 				CE59AA762378994200A08DBE /* AirPodsItem.swift in Sources */,
 				CE4FCF0323797E5C004D2DC0 /* ControlStripItem.swift in Sources */,
 				CE38C90C239CF5CD00F78380 /* Date-Extensions.swift in Sources */,
