@@ -10,7 +10,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
     }
 
     var items: [Item] = [] { didSet { view.replaceItems(with: items) } }
-    var runningApplication: Application? { view.applicationView.application }
+    var currentApplication: Application? { view.applicationView.application }
 
 
     private override init() {
@@ -34,8 +34,30 @@ class TouchBar: NSObject, NSTouchBarDelegate {
             ],
             object: nil
         )
+
+//        NSApplication.shared.toggleTouchBarCustomizationPalette(touchBar)
     }
 
+    /*
+    override func makeTouchBar() -> NSTouchBar? {
+        let touchBar = NSTouchBar()
+
+        touchBar.delegate = self
+        touchBar.customizationIdentifier = TouchBarConstants.touchBarCustomizationIdentifierExtension
+
+        touchBar.defaultItemIdentifiers = TouchBarConstants.TouchBarIdentifier.allCases.filter {
+            $0 != .inventoryLabelItem // most people use ESC for inventory
+        }.map({
+            NSTouchBarItem.Identifier(rawValue: $0.rawValue)
+        })
+
+        touchBar.customizationAllowedItemIdentifiers = TouchBarConstants.TouchBarIdentifier.allCases.map({
+            NSTouchBarItem.Identifier(rawValue: $0.rawValue)
+        })
+
+        return touchBar
+    }
+    */
 
     func runApplication(_ application: Application) {
         view.applicationView.runApplication(application)
@@ -80,10 +102,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
         }
     }
 
-    func touchBar(
-        _: NSTouchBar,
-        makeItemForIdentifier identifier: NSTouchBarItem.Identifier
-    ) -> NSTouchBarItem? {
+    func touchBar(_: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
         switch identifier {
         case .viewItem:
             return NSCustomTouchBarItem(identifier: .viewItem, view: view)

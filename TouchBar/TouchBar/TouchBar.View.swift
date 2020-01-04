@@ -4,9 +4,9 @@ extension TouchBar {
         private static let swipeLeftBound = NSTouchBar.size.width - 100
 
         private weak var target: TouchBar?
-        private var action: Selector?
+        private var swipeAction: Selector?
         private var touchX: CGFloat?
-        private var offset = Offset.zero
+        private var offset = HorizontalOffset.zero
 
         let applicationView = ApplicationView(x: 0, width: NSTouchBar.size.width)
 
@@ -17,7 +17,7 @@ extension TouchBar {
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(updateLayout(animated:)),
-                name: .touchBarItemWidthWillChange,
+                name: .touchBarItemWillChangeWidth,
                 object: nil
             )
 
@@ -84,23 +84,23 @@ extension TouchBar {
 
         func setSwipeAction(_ action: Selector?, target: TouchBar?) {
             self.target = target
-            self.action = action
+            self.swipeAction = action
         }
 
         override func touchesBegan(with event: NSEvent) {
-            guard target != nil && action != nil else { return }
+            guard target != nil && swipeAction != nil else { return }
 
             touchX = event.touches(matching: .began, in: self).first?.location(in: self).x
         }
 
         override func touchesEnded(with event: NSEvent) {
             guard
-                target != nil && action != nil && touchX != nil,
+                target != nil && swipeAction != nil && touchX != nil,
                 let x = event.touches(matching: .ended, in: self).first?.location(in: self).x
             else { return }
 
             if touchX! > Self.swipeLeftBound && touchX! - x > Constants.swipeThreshold {
-                target?.perform(action)
+                target?.perform(swipeAction)
             }
             touchX = nil
         }
