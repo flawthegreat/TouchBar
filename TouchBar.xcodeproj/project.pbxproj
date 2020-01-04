@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE144B8E23C0BDCF00A08B08 /* HorizontalOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */; };
 		CE144B9023C0C70300A08B08 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = CE144B8F23C0C70300A08B08 /* TODO.md */; };
+		CE144B9223C0E0A000A08B08 /* AppSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144B9123C0E0A000A08B08 /* AppSwitcher.swift */; };
 		CE14EE7A239CF89F009ABFD0 /* Notification.Name-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14EE79239CF89F009ABFD0 /* Notification.Name-Extensions.swift */; };
 		CE14EE7C239CFA45009ABFD0 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */; };
 		CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B8B237803DE002EA61A /* AppDelegate.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalOffset.swift; sourceTree = "<group>"; };
 		CE144B8F23C0C70300A08B08 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = TouchBar/TODO.md; sourceTree = "<group>"; };
+		CE144B9123C0E0A000A08B08 /* AppSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSwitcher.swift; sourceTree = "<group>"; };
 		CE14EE79239CF89F009ABFD0 /* Notification.Name-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name-Extensions.swift"; sourceTree = "<group>"; };
 		CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		CE221BA323858E9100345581 /* CoreBrightness.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBrightness.framework; path = ../../../../System/Library/PrivateFrameworks/CoreBrightness.framework; sourceTree = "<group>"; };
@@ -158,7 +160,7 @@
 				CE59AA752378994200A08DBE /* AirPodsItem.swift */,
 				CE6C593B2379F968001DDB05 /* VolumeItem.swift */,
 				CE59AA7B23793D4600A08DBE /* BrightnessItem.swift */,
-				CEC7497A237DC34F00E41E60 /* CalculatorItem.swift */,
+				CE144B9123C0E0A000A08B08 /* AppSwitcher.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -205,6 +207,7 @@
 		CEC74984237DF10600E41E60 /* Applications */ = {
 			isa = PBXGroup;
 			children = (
+				CEC7497A237DC34F00E41E60 /* CalculatorItem.swift */,
 				CEC74982237DF10000E41E60 /* CalculatorApplication.swift */,
 			);
 			path = Applications;
@@ -308,6 +311,7 @@
 				CE38C901239CF43B00F78380 /* Constants.swift in Sources */,
 				CEC7497B237DC34F00E41E60 /* CalculatorItem.swift in Sources */,
 				CE6C593C2379F968001DDB05 /* VolumeItem.swift in Sources */,
+				CE144B9223C0E0A000A08B08 /* AppSwitcher.swift in Sources */,
 				CEC74979237DA3D100E41E60 /* TouchBar.Button.swift in Sources */,
 				CE38C906239CF52100F78380 /* NSScreen-Extensions.swift in Sources */,
 				CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */,

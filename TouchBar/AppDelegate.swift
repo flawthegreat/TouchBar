@@ -9,7 +9,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = menu
 
         TouchBar.shared.items = [
-            CalculatorItem(alignment: .left),
+//            CalculatorItem(alignment: .left),
+            AppSwitcher(alignment: .left),
             VolumeItem(alignment: .left),
             BrightnessItem(alignment: .left),
             DateItem(alignment: .right),

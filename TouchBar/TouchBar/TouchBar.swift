@@ -10,7 +10,6 @@ class TouchBar: NSObject, NSTouchBarDelegate {
     }
 
     var items: [Item] = [] { didSet { view.replaceItems(with: items) } }
-    var currentApplication: Application? { view.applicationView.application }
 
 
     private override init() {
@@ -34,42 +33,8 @@ class TouchBar: NSObject, NSTouchBarDelegate {
             ],
             object: nil
         )
-
-//        NSApplication.shared.toggleTouchBarCustomizationPalette(touchBar)
     }
 
-    /*
-    override func makeTouchBar() -> NSTouchBar? {
-        let touchBar = NSTouchBar()
-
-        touchBar.delegate = self
-        touchBar.customizationIdentifier = TouchBarConstants.touchBarCustomizationIdentifierExtension
-
-        touchBar.defaultItemIdentifiers = TouchBarConstants.TouchBarIdentifier.allCases.filter {
-            $0 != .inventoryLabelItem // most people use ESC for inventory
-        }.map({
-            NSTouchBarItem.Identifier(rawValue: $0.rawValue)
-        })
-
-        touchBar.customizationAllowedItemIdentifiers = TouchBarConstants.TouchBarIdentifier.allCases.map({
-            NSTouchBarItem.Identifier(rawValue: $0.rawValue)
-        })
-
-        return touchBar
-    }
-    */
-
-    func runApplication(_ application: Application) {
-        view.applicationView.runApplication(application)
-    }
-
-    func terminateApplication() {
-        view.applicationView.terminateApplication()
-    }
-
-    func dimApplication() {
-        view.applicationView.dimApplication()
-    }
 
     @objc
     func show() {
@@ -96,9 +61,23 @@ class TouchBar: NSObject, NSTouchBarDelegate {
     @objc
     private func activeApplicationDidChange() {
         if frontmostApplicationBundleIdentifier != Bundle.main.bundleIdentifier {
-            dimApplication()
+//            dimApplication()
         } else if !isVisible {
             reloadControlStripButton()
+        }
+    }
+
+    func hideAllItems(except excludedItem: Item) {
+        NSView.animate(withDuration: Constants.animationDuration) { _ in
+            for item in items where item != excludedItem { item.animator().alphaValue = 0 }
+            view.applicationView.animator().alphaValue = 0
+        }
+    }
+
+    func showAllItems() {
+        NSView.animate(withDuration: Constants.animationDuration) { _ in
+            items.forEach { $0.animator().alphaValue = 1 }
+            view.applicationView.animator().alphaValue = 1
         }
     }
 

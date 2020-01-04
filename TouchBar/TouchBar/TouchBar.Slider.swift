@@ -68,6 +68,8 @@ extension TouchBar {
         override func touchesBegan(with event: NSEvent) {
             touchX = event.touches(matching: .began, in: self).first?.location(in: self).x
 
+            TouchBar.shared.hideAllItems(except: self)
+
             let width = NSTouchBar.sliderWidth + NSTouchBar.buttonSize.width + widthDifference
             setWidth(width, animated: true)
             NSView.animate(withDuration: Constants.animationDuration) { _ in
@@ -115,6 +117,8 @@ extension TouchBar {
         override func touchesEnded(with event: NSEvent) {
             touchX = nil
             knobX = nil
+
+            TouchBar.shared.showAllItems()
 
             setWidth(NSTouchBar.buttonSize.width, animated: true)
             NSView.animate(withDuration: Constants.animationDuration) { _ in
