@@ -9,12 +9,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = menu
 
         TouchBar.shared.items = [
+            CalculatorItem(alignment: .left),
+            VolumeItem(alignment: .left),
+            BrightnessItem(alignment: .left),
             DateItem(alignment: .right),
             BatteryItem(alignment: .right),
             AirPodsItem(alignment: .right),
-            VolumeItem(alignment: .left),
-            CalculatorItem(alignment: .left),
-            BrightnessItem(alignment: .left),
         ]
         TouchBar.shared.show()
     }
