@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE144B8E23C0BDCF00A08B08 /* HorizontalOffset.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */; };
+		CE144B9023C0C70300A08B08 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = CE144B8F23C0C70300A08B08 /* TODO.md */; };
 		CE14EE7A239CF89F009ABFD0 /* Notification.Name-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14EE79239CF89F009ABFD0 /* Notification.Name-Extensions.swift */; };
 		CE14EE7C239CFA45009ABFD0 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */; };
 		CE274B8C237803DE002EA61A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B8B237803DE002EA61A /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		CE144B8D23C0BDCF00A08B08 /* HorizontalOffset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalOffset.swift; sourceTree = "<group>"; };
+		CE144B8F23C0C70300A08B08 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = TODO.md; path = TouchBar/TODO.md; sourceTree = "<group>"; };
 		CE14EE79239CF89F009ABFD0 /* Notification.Name-Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name-Extensions.swift"; sourceTree = "<group>"; };
 		CE14EE7B239CFA45009ABFD0 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		CE221BA323858E9100345581 /* CoreBrightness.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBrightness.framework; path = ../../../../System/Library/PrivateFrameworks/CoreBrightness.framework; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				CE274B8D237803E0002EA61A /* Assets.xcassets */,
 				CE274B8F237803E0002EA61A /* Main.xib */,
 				CE274B8B237803DE002EA61A /* AppDelegate.swift */,
+				CE144B8F23C0C70300A08B08 /* TODO.md */,
 				CE14EE7D239D06EB009ABFD0 /* Support */,
 				CE38C902239CF46C00F78380 /* Extensions */,
 				CEB99308237D4A740011DB48 /* TouchBar */,
@@ -266,6 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE144B9023C0C70300A08B08 /* TODO.md in Resources */,
 				CE274B8E237803E0002EA61A /* Assets.xcassets in Resources */,
 				CE274B91237803E0002EA61A /* Main.xib in Resources */,
 			);

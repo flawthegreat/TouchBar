@@ -1,7 +1,6 @@
 class VolumeItem: TouchBar.Button {
 
-    private var previousVolume = SoundManager.shared.volumeLevel
-
+    private static let iconUpdateDelay = 0.05
 
     override init(alignment: Alignment) {
         super.init(alignment: alignment)
@@ -22,8 +21,8 @@ class VolumeItem: TouchBar.Button {
 
         target = self
         action = #selector(toggleMute)
-        swipeLeftAction = #selector(decreaseVolume)
-        swipeRightAction = #selector(increaseVolume)
+        tapLeftAction = #selector(decreaseVolume)
+        tapRightAction = #selector(increaseVolume)
 
         update()
     }
@@ -33,35 +32,33 @@ class VolumeItem: TouchBar.Button {
 
     @objc
     override func update() {
+        if SoundManager.shared.isMuted {
+            image = NSImage(named: "VolumeMuteIcon")
+            return
+        }
+
         let volumeLevel = SoundManager.shared.volumeLevel
-        if volumeLevel == 0 { image = NSImage(named: "VolumeMuteIcon") }
-        else if volumeLevel <= 0.33 { image = NSImage(named: "Volume0Icon") }
-        else if volumeLevel <= 0.66 { image = NSImage(named: "Volume1Icon") }
-        else if volumeLevel < 1 { image = NSImage(named: "Volume2Icon") }
+        if volumeLevel == 0 { image = NSImage(named: "Volume0Icon") }
+        else if volumeLevel <= 0.375 { image = NSImage(named: "Volume1Icon") }
+        else if volumeLevel <= 0.625 { image = NSImage(named: "Volume2Icon") }
         else { image = NSImage(named: "Volume3Icon") }
     }
 
     @objc
     private func increaseVolume() {
-        let systemVolume = SoundManager.shared.volumeLevel
-        let volume = min(1, systemVolume + 0.12)
-        if volume != systemVolume { SoundManager.shared.setVolumeLevel(volume) }
-        previousVolume = volume
-        update()
+        Keyboard.pressKey(withKeyCode: Keyboard.ControlKey.volumeUp)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.iconUpdateDelay) { self.update() }
     }
 
     @objc
     private func decreaseVolume() {
-        let systemVolume = SoundManager.shared.volumeLevel
-        let volume = max(0, systemVolume - 0.12)
-        if volume != systemVolume { SoundManager.shared.setVolumeLevel(volume) }
-        previousVolume = volume
-        update()
+        Keyboard.pressKey(withKeyCode: Keyboard.ControlKey.volumeDown)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.iconUpdateDelay) { self.update() }
     }
 
     @objc
     private func toggleMute() {
-        SoundManager.shared.setVolumeLevel(SoundManager.shared.volumeLevel == 0 ? previousVolume : 0)
-        update()
+        Keyboard.pressKey(withKeyCode: Keyboard.ControlKey.mute)
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.iconUpdateDelay) { self.update() }
     }
 }

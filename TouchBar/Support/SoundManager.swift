@@ -5,7 +5,7 @@ class SoundManager {
     static let shared = SoundManager()
 
     private var defaultOutputDeviceTypeSize = UInt32(MemoryLayout<AudioDeviceID>.size)
-    private var muteStateTypeSize = UInt32(MemoryLayout<Int>.size)
+    private var muteStateTypeSize = UInt32(MemoryLayout<UInt32>.size)
     private var volumeTypeSize = UInt32(MemoryLayout<Float>.size)
 
     private var defaultOutputDevicePropertyAddress = AudioObjectPropertyAddress(
@@ -30,7 +30,6 @@ class SoundManager {
 
     var volumeLevel: Float {
         updateDefaultOutputDevice()
-        unmute()
 
         var volumeLevel: Float = 0
         AudioObjectGetPropertyData(
@@ -43,6 +42,22 @@ class SoundManager {
         )
 
         return volumeLevel
+    }
+
+    var isMuted: Bool {
+        updateDefaultOutputDevice()
+
+        var isMuted: UInt32 = 0
+        AudioObjectGetPropertyData(
+            defaultOutputDevice,
+            &mutePropertyAddress,
+            0,
+            nil,
+            &muteStateTypeSize,
+            &isMuted
+        )
+
+        return isMuted != 0
     }
 
 
@@ -85,21 +100,6 @@ class SoundManager {
     }
 
 
-    func setVolumeLevel(_ level: Float) {
-        updateDefaultOutputDevice()
-        unmute()
-
-        var volumeLevel = min(1, max(0, level))
-        AudioObjectSetPropertyData(
-            defaultOutputDevice,
-            &volumePropertyAddress,
-            0,
-            nil,
-            volumeTypeSize,
-            &volumeLevel
-        )
-    }
-
     @objc
     private func updateDefaultOutputDevice() {
         AudioObjectGetPropertyData(
@@ -109,18 +109,6 @@ class SoundManager {
             nil,
             &defaultOutputDeviceTypeSize,
             &defaultOutputDevice
-        )
-    }
-
-    private func unmute() {
-        var mute = 0
-        AudioObjectSetPropertyData(
-            defaultOutputDevice,
-            &mutePropertyAddress,
-            0,
-            nil,
-            muteStateTypeSize,
-            &mute
         )
     }
 }
