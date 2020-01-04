@@ -1,7 +1,7 @@
 extension TouchBar {
     class View: NSView {
 
-        private static let swipeLeftBound = NSTouchBar.size.width - 100
+        private let swipeLeftBound = NSTouchBar.size.width - 100
 
         private weak var target: TouchBar?
         private var swipeAction: Selector?
@@ -99,7 +99,7 @@ extension TouchBar {
                 let x = event.touches(matching: .ended, in: self).first?.location(in: self).x
             else { return }
 
-            if touchX! > Self.swipeLeftBound && touchX! - x > Constants.swipeThreshold {
+            if touchX! > swipeLeftBound && touchX! - x > Constants.swipeThreshold {
                 target?.perform(swipeAction)
             }
             touchX = nil

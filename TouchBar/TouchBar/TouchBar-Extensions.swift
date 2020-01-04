@@ -5,9 +5,9 @@ extension NSTouchBarItem.Identifier {
 
 extension NSTouchBar {
     static let size = NSSize(width: 1085, height: 30)
+    static let buttonSize = NSSize(width: 72, height: 30)
     static let itemGap: CGFloat = 10
     static let fontSize: CGFloat = 15
-    static let buttonWidth: CGFloat = 72
     static let sliderWidth: CGFloat = 200
 
     func controlStripSetVisible(_ visible: Bool) {

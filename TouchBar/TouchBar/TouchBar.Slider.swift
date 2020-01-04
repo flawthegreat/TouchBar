@@ -1,10 +1,7 @@
 extension TouchBar {
     class Slider: Item {
 
-        private let background = NSButton(frame: NSRect(
-            origin: .zero,
-            size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
-        ))
+        private let background = NSButton(frame: NSRect(origin: .zero, size: NSTouchBar.buttonSize))
 
         private let progressBarBackground = NSView(frame: NSRect(
             x: -NSTouchBar.sliderWidth,
@@ -19,22 +16,19 @@ extension TouchBar {
         ))
 
         private let knob = NSView(frame: NSRect(
-            x: -NSTouchBar.buttonWidth,
+            x: -NSTouchBar.buttonSize.width,
             y: 0,
             width: NSTouchBar.size.height,
             height: NSTouchBar.size.height
         ))
 
-        private let widthDifference: CGFloat = (NSTouchBar.buttonWidth - NSTouchBar.size.height) / 2
+        private let widthDifference: CGFloat = (NSTouchBar.buttonSize.width - NSTouchBar.size.height) / 2
         private var touchX: CGFloat?
         private var knobX: CGFloat?
         private var previousValue: CGFloat?
 
 
-        let icon = NSImageView(frame: NSRect(
-            origin: .zero,
-            size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
-        ))
+        let icon = NSImageView(frame: NSRect(origin: .zero, size: NSTouchBar.buttonSize))
 
         var value: CGFloat = 0
         var target: Slider?
@@ -42,7 +36,7 @@ extension TouchBar {
 
         
         init(alignment: Alignment) {
-            super.init(alignment: alignment, width: NSTouchBar.buttonWidth)
+            super.init(alignment: alignment, width: NSTouchBar.buttonSize.width)
 
             background.bezelStyle = .rounded
             background.title = ""
@@ -50,6 +44,7 @@ extension TouchBar {
             progressBarBackground.wantsLayer = true
             progressBarBackground.layer?.backgroundColor = NSColor.gray.cgColor
             progressBarBackground.layer?.cornerRadius = 2
+            progressBarBackground.alphaValue = 0
 
             progressBar.wantsLayer = true
             progressBar.layer?.backgroundColor = NSColor.systemBlue.cgColor
@@ -59,6 +54,7 @@ extension TouchBar {
             knob.layer?.backgroundColor = .white
             knob.layer?.cornerRadius = 5
             knob.layer?.borderWidth = 1
+            knob.alphaValue = 0
 
             addSubview(background)
             addSubview(progressBarBackground)
@@ -72,19 +68,21 @@ extension TouchBar {
         override func touchesBegan(with event: NSEvent) {
             touchX = event.touches(matching: .began, in: self).first?.location(in: self).x
 
-            let width = NSTouchBar.sliderWidth + NSTouchBar.buttonWidth + widthDifference
+            let width = NSTouchBar.sliderWidth + NSTouchBar.buttonSize.width + widthDifference
             setWidth(width, animated: true)
             NSView.animate(withDuration: Constants.animationDuration) { _ in
                 background.animator().frame.size.width = width
 
-                progressBarBackground.animator().frame.origin.x = NSTouchBar.buttonWidth / 2 - NSTouchBar.size.height / 4
+                progressBarBackground.animator().alphaValue = 1
+                progressBarBackground.animator().frame.origin.x = NSTouchBar.buttonSize.width / 2 - NSTouchBar.size.height / 4
                 progressBarBackground.animator().frame.size.width = NSTouchBar.sliderWidth - NSTouchBar.size.height / 2
 
                 progressBar.frame.size.width = value * (NSTouchBar.sliderWidth - NSTouchBar.size.height)
 
-                icon.animator().frame.origin.x = background.animator().frame.width - NSTouchBar.buttonWidth
+                icon.animator().frame.origin.x = background.animator().frame.width - NSTouchBar.buttonSize.width
 
                 knobX = widthDifference + value * (NSTouchBar.sliderWidth - NSTouchBar.size.height)
+                knob.animator().alphaValue = 1
                 knob.animator().frame.origin.x = knobX!
                 knobX! -= widthDifference
 
@@ -98,19 +96,16 @@ extension TouchBar {
                 let x = event.touches(matching: .moved, in: self).first?.location(in: self).x
             else { return }
 
-            let offset = max(0, min(
-                NSTouchBar.sliderWidth - NSTouchBar.size.height,
-                x - (NSTouchBar.size.height - NSTouchBar.buttonWidth) / 2 - widthDifference - touchX! + knobX!
-            ))
+            let partialOffset = x - (NSTouchBar.size.height - NSTouchBar.buttonSize.width) / 2
+            var offset = partialOffset - widthDifference - touchX! + knobX!
+            offset = max(0, min(NSTouchBar.sliderWidth - NSTouchBar.size.height, offset))
             value = offset / (NSTouchBar.sliderWidth - NSTouchBar.size.height)
 
             progressBar.frame.size.width = value * (NSTouchBar.sliderWidth - NSTouchBar.size.height)
 
             knob.frame.origin.x = offset + widthDifference
 
-            if abs(previousValue! - value) > 0.01 ||
-               previousValue != value && (value == 0 || value == 1)
-            {
+            if abs(previousValue! - value) > 0.01 || previousValue != value && (value == 0 || value == 1) {
                 target?.perform(action)
             }
 
@@ -121,15 +116,17 @@ extension TouchBar {
             touchX = nil
             knobX = nil
 
-            setWidth(NSTouchBar.buttonWidth, animated: true)
+            setWidth(NSTouchBar.buttonSize.width, animated: true)
             NSView.animate(withDuration: Constants.animationDuration) { _ in
-                background.animator().frame.size.width = NSTouchBar.buttonWidth
+                background.animator().frame.size.width = NSTouchBar.buttonSize.width
 
+                progressBarBackground.animator().alphaValue = 0
                 progressBarBackground.animator().frame.origin.x = -NSTouchBar.sliderWidth
                 progressBarBackground.animator().frame.size.width = NSTouchBar.sliderWidth - NSTouchBar.size.height / 2
 
                 icon.animator().frame.origin.x = 0
-                knob.animator().frame.origin.x = -NSTouchBar.buttonWidth
+                knob.animator().alphaValue = 0
+                knob.animator().frame.origin.x = -NSTouchBar.buttonSize.width
             }
         }
     }

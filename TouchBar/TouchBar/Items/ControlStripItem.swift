@@ -13,12 +13,10 @@ class ControlStripItem: NSCustomTouchBarItem {
 
 
         override func touchesBegan(with event: NSEvent) {
-            super.touchesBegan(with: event)
             layer?.backgroundColor = NSColor.controlColor.cgColor
         }
 
         override func touchesEnded(with event: NSEvent) {
-            super.touchesEnded(with: event)
             layer?.backgroundColor = NSColor.controlAlternatingRowBackgroundColors[1].cgColor
         }
     }
@@ -29,10 +27,7 @@ class ControlStripItem: NSCustomTouchBarItem {
 
         view = NSButton(title: "􀏪", target: target, action: action)
         if view.subviews.count > 0 {
-            view.subviews[0] = ButtonBackground(frame: NSRect(
-                origin: .zero,
-                size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
-            ))
+            view.subviews[0] = ButtonBackground(frame: NSRect(origin: .zero, size: NSTouchBar.buttonSize))
         }
     }
 

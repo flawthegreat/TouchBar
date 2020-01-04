@@ -24,7 +24,7 @@ class CalculatorItem: TouchBar.Button {
 
     @objc
     private func toggleApplication() {
-        if let runningApplicationName = TouchBar.shared.runningApplication?.name,
+        if let runningApplicationName = TouchBar.shared.currentApplication?.name,
            runningApplicationName == applicationName
         {
             isRunning = false
@@ -32,12 +32,12 @@ class CalculatorItem: TouchBar.Button {
         } else if !isRunning {
             isRunning = true
             TouchBar.shared.runApplication(CalculatorApplication())
-            applicationName = TouchBar.shared.runningApplication?.name
+            applicationName = TouchBar.shared.currentApplication?.name
         }
     }
 
     @objc
     private func applicationWillTerminate() {
-        if TouchBar.shared.runningApplication?.name == applicationName { isRunning = false }
+        if TouchBar.shared.currentApplication?.name == applicationName { isRunning = false }
     }
 }

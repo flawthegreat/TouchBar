@@ -15,10 +15,7 @@ class CalculatorApplication: TouchBar.Application {
         var parentAction: Selector?
 
         init(x: CGFloat, title: String) {
-            super.init(frame: NSRect(
-                origin: CGPoint(x: x, y: 0),
-                size: CGSize(width: NSTouchBar.buttonWidth, height: NSTouchBar.size.height)
-            ))
+            super.init(frame: NSRect(origin: CGPoint(x: x, y: 0), size: NSTouchBar.buttonSize))
 
             wantsLayer = true
             layer?.borderWidth = 0
@@ -65,17 +62,17 @@ class CalculatorApplication: TouchBar.Application {
     )
 
     private let multiplyButton = OperationButton(
-        x: NSTouchBar.buttonWidth + NSTouchBar.itemGap,
+        x: NSTouchBar.buttonSize.width + NSTouchBar.itemGap,
         title: "􀅾"
     )
 
     private let subtractButton = OperationButton(
-        x: 2 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
+        x: 2 * (NSTouchBar.buttonSize.width + NSTouchBar.itemGap),
         title: "􀅽"
     )
 
     private let addButton = OperationButton(
-        x: 3 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
+        x: 3 * (NSTouchBar.buttonSize.width + NSTouchBar.itemGap),
         title: "􀅼"
     )
 
@@ -96,17 +93,17 @@ class CalculatorApplication: TouchBar.Application {
 
 
     init() {
-        width = 4 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap) + minNumberWidth +
+        width = 4 * (NSTouchBar.buttonSize.width + NSTouchBar.itemGap) + minNumberWidth +
             NSTouchBar.itemGap + pasteButtonWidth + 20
 
         currentNumberLabel = NSTextField(frame: NSRect(
-            x: 4 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
+            x: 4 * (NSTouchBar.buttonSize.width + NSTouchBar.itemGap),
             y: -9,
             width: minNumberWidth,
             height: NSTouchBar.size.height
         ))
         previousNumberLabel = NSTextField(frame: NSRect(
-            x: 4 * (NSTouchBar.buttonWidth + NSTouchBar.itemGap),
+            x: 4 * (NSTouchBar.buttonSize.width + NSTouchBar.itemGap),
             y: NSTouchBar.size.height / 2 - 8,
             width: minNumberWidth,
             height: NSTouchBar.size.height

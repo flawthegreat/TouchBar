@@ -21,7 +21,7 @@ extension TouchBar {
             NSView.animate(withDuration: animated ? Constants.animationDuration : 0, changes: { _ in
                 animator().frame.size.width = width
                 NotificationCenter.default.post(
-                    name: .touchBarItemWidthWillChange,
+                    name: .touchBarItemWillChangeWidth,
                     object: nil
                 )
             })

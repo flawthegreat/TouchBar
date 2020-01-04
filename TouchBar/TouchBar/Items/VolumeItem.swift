@@ -1,6 +1,7 @@
 class VolumeItem: TouchBar.Button {
 
-    private static let iconUpdateDelay = 0.05
+    private let iconUpdateDelay = 0.05
+
 
     override init(alignment: Alignment) {
         super.init(alignment: alignment)
@@ -21,8 +22,8 @@ class VolumeItem: TouchBar.Button {
 
         target = self
         action = #selector(toggleMute)
-        tapLeftAction = #selector(decreaseVolume)
-        tapRightAction = #selector(increaseVolume)
+        leftAction = #selector(decreaseVolume)
+        rightAction = #selector(increaseVolume)
 
         update()
     }
@@ -47,18 +48,18 @@ class VolumeItem: TouchBar.Button {
     @objc
     private func increaseVolume() {
         Keyboard.pressKey(withKeyCode: Keyboard.ControlKey.volumeUp)
-        DispatchQueue.main.asyncAfter(deadline: .now() + Self.iconUpdateDelay) { self.update() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + iconUpdateDelay) { self.update() }
     }
 
     @objc
     private func decreaseVolume() {
         Keyboard.pressKey(withKeyCode: Keyboard.ControlKey.volumeDown)
-        DispatchQueue.main.asyncAfter(deadline: .now() + Self.iconUpdateDelay) { self.update() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + iconUpdateDelay) { self.update() }
     }
 
     @objc
     private func toggleMute() {
         Keyboard.pressKey(withKeyCode: Keyboard.ControlKey.mute)
-        DispatchQueue.main.asyncAfter(deadline: .now() + Self.iconUpdateDelay) { self.update() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + iconUpdateDelay) { self.update() }
     }
 }
