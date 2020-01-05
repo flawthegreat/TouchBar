@@ -17,13 +17,10 @@ extension TouchBar {
         required init?(coder: NSCoder) { fatalError() }
 
 
-        func setWidth(_ width: CGFloat, animated: Bool = false) {
+        final func setWidth(_ width: CGFloat, animated: Bool = false) {
             NSView.animate(withDuration: animated ? Constants.animationDuration : 0, changes: { _ in
                 animator().frame.size.width = width
-                NotificationCenter.default.post(
-                    name: .touchBarItemWillChangeWidth,
-                    object: nil
-                )
+                NotificationCenter.default.post(notification: .touchBarItemWillChangeWidth)
             })
         }
 

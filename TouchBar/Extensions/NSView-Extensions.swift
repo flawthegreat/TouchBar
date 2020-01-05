@@ -14,6 +14,7 @@ extension NSView {
         animate(withDuration: duration, changes: changes, completionHandler: nil)
     }
 
+    @objc
     func flash() {
         NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
             animator().alphaValue = 1

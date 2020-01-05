@@ -1,6 +1,6 @@
 import IOBluetooth
 
-class AirPodsItem: TouchBar.Item {
+final class AirPodsItem: TouchBar.Item {
 
     private let addressString = "fc-1d-43-dd-6b-3d"
     private let width: CGFloat = 22
@@ -38,8 +38,7 @@ class AirPodsItem: TouchBar.Item {
         NSWorkspace.shared.notificationCenter.addObserver(
             self,
             selector: #selector(updateIcon),
-            name: NSWorkspace.screensDidWakeNotification,
-            object: nil
+            name: NSWorkspace.screensDidWakeNotification
         )
 
         searchForAirPods(updateConnection: false)

@@ -58,7 +58,7 @@ extension TouchBar {
         required init?(coder: NSCoder) { fatalError() }
 
 
-        override func touchesBegan(with event: NSEvent) {
+        override final func touchesBegan(with event: NSEvent) {
             guard let x = event.touches(matching: .began, in: self).first?.location(in: self).x
             else { return }
 
@@ -84,7 +84,7 @@ extension TouchBar {
             })
         }
 
-        override func touchesMoved(with event: NSEvent) {
+        override final func touchesMoved(with event: NSEvent) {
             guard let x = event.touches(matching: .moved, in: self).first?.location(in: self).x
             else { return }
 
@@ -101,7 +101,7 @@ extension TouchBar {
             }
         }
 
-        override func touchesEnded(with event: NSEvent) {
+        override final func touchesEnded(with event: NSEvent) {
             timer?.invalidate()
         }
     }

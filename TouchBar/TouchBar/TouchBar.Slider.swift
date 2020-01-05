@@ -65,7 +65,7 @@ extension TouchBar {
         required init?(coder: NSCoder) { fatalError() }
 
 
-        override func touchesBegan(with event: NSEvent) {
+        override final func touchesBegan(with event: NSEvent) {
             touchX = event.touches(matching: .began, in: self).first?.location(in: self).x
 
             TouchBar.shared.hideAllItems(except: self)
@@ -92,7 +92,7 @@ extension TouchBar {
             }
         }
 
-        override func touchesMoved(with event: NSEvent) {
+        override final func touchesMoved(with event: NSEvent) {
             guard
                 touchX != nil && knobX != nil && previousValue != nil,
                 let x = event.touches(matching: .moved, in: self).first?.location(in: self).x
@@ -111,7 +111,7 @@ extension TouchBar {
             previousValue = value
         }
 
-        override func touchesEnded(with event: NSEvent) {
+        override final func touchesEnded(with event: NSEvent) {
             touchX = nil
             knobX = nil
 

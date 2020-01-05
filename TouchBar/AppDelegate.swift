@@ -18,14 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ]
 
         TouchBar.shared.applications = [
-            TouchBar.Application(name: "Hello)", accentColor: .systemIndigo),
-            TouchBar.Application(name: "Hello)", accentColor: .systemRed),
-            TouchBar.Application(name: "Hello)", accentColor: .systemBlue),
-            TouchBar.Application(name: "Hello)", accentColor: .systemGray),
-            TouchBar.Application(name: "Hello)", accentColor: .systemGreen),
-            TouchBar.Application(name: "Hello)", accentColor: .systemOrange),
-            TouchBar.Application(name: "Hello)", accentColor: .systemPurple),
-            TouchBar.Application(name: "Hello)", accentColor: .systemTeal),
+            CalculatorApplication(),
         ]
 
         TouchBar.shared.show()

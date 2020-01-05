@@ -1,4 +1,4 @@
-class ControlStripItem: NSCustomTouchBarItem {
+final class ControlStripItem: NSCustomTouchBarItem {
 
     private class ButtonBackground: NSView {
 

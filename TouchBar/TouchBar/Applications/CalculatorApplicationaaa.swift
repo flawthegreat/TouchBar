@@ -1,4 +1,4 @@
-//class CalculatorApplication: TouchBar.Application {
+//class CalculatorApplicatio: TouchBar.Application {
 //
 //    private class CopyTextField: NSTextField {
 //
@@ -258,7 +258,7 @@
 //        }
 //    }
 //
-//    private func keyDown(with event: NSEvent) -> NSEvent? {
+//    private func keyDown(with evenat: NSEvent) -> NSEvent? {
 //        let keyCode = event.keyCode
 //        var currentNumber = getCurrentNumber()
 //

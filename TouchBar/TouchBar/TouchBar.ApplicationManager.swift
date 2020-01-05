@@ -107,14 +107,15 @@ extension TouchBar {
             hideAppSwitcher()
         }
 
-        func updateContentsToMatchWidth() {
+        func updateContentsToMatchWidth(animated: Bool = false) {
             if appSwitcher.frame.origin.x != 0 { appSwitcher.frame.origin.x = -frame.width }
 
-            NSView.animate(withDuration: Constants.animationDuration) { _ in
+            NSView.animate(withDuration: animated ? Constants.animationDuration : 0) { _ in
                 appSwitcher.animator().frame.size = frame.size
                 appView.animator().frame.size = frame.size
             }
-            activeApplication?.updateWidth()
+            
+            activeApplication?.updateWidth(frame.size.width, animated: animated)
         }
 
         func addTint() {

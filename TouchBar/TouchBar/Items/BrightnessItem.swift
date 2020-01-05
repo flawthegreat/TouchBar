@@ -1,4 +1,4 @@
-class BrightnessItem: TouchBar.Slider {
+final class BrightnessItem: TouchBar.Slider {
 
     override init(alignment: Alignment) {
         super.init(alignment: alignment)

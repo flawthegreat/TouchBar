@@ -1,4 +1,4 @@
-class DateItem: TouchBar.Item {
+final class DateItem: TouchBar.Item {
 
     private let horizontalPadding: CGFloat = -3.5
     private let verticalOffset: CGFloat = -3
@@ -25,8 +25,7 @@ class DateItem: TouchBar.Item {
         NSWorkspace.shared.notificationCenter.addObserver(
             self,
             selector: #selector(resetTimer),
-            name: NSWorkspace.screensDidWakeNotification,
-            object: nil
+            name: NSWorkspace.screensDidWakeNotification
         )
 
         addSubview(label)

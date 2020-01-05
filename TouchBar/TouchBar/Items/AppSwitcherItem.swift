@@ -1,4 +1,4 @@
-class AppSwitcherItem: TouchBar.Button {
+final class AppSwitcherItem: TouchBar.Button {
 
     override init(alignment: Alignment) {
         super.init(alignment: alignment)

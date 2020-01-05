@@ -1,4 +1,4 @@
-class VolumeItem: TouchBar.Button {
+final class VolumeItem: TouchBar.Button {
 
     private let iconUpdateDelay = 0.05
 
@@ -9,8 +9,7 @@ class VolumeItem: TouchBar.Button {
         DistributedNotificationCenter.default.addObserver(
             self,
             selector: #selector(update),
-            name: NSNotification.Name(rawValue: "com.apple.sound.settingsChangedNotification"),
-            object: nil
+            name: NSNotification.Name(rawValue: "com.apple.sound.settingsChangedNotification")
         )
 
         NotificationCenter.default.addObserver(

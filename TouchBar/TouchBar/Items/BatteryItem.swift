@@ -1,6 +1,6 @@
 import IOKit.ps
 
-class BatteryItem: TouchBar.Item {
+final class BatteryItem: TouchBar.Item {
 
     private let horizontalPadding: CGFloat = -3.5
     private let verticalOffset: CGFloat = -3
@@ -41,8 +41,7 @@ class BatteryItem: TouchBar.Item {
         NSWorkspace.shared.notificationCenter.addObserver(
             self,
             selector: #selector(update),
-            name: NSWorkspace.screensDidWakeNotification,
-            object: nil
+            name: NSWorkspace.screensDidWakeNotification
         )
 
         let context = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())

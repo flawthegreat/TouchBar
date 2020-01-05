@@ -28,14 +28,12 @@ extension TouchBar {
         }
 
         private func updateApplicationViewWidth(animated: Bool = false) {
-            print("****", NSTouchBar.size.width - offset.right - offset.left)
-
             NSView.animate(withDuration: animated ? Constants.animationDuration : 0) { _ in
                 applicationManager.animator().frame.origin.x = offset.left
                 applicationManager.animator().frame.size.width = NSTouchBar.size.width - offset.right - offset.left
             }
 
-            applicationManager.updateContentsToMatchWidth()
+            applicationManager.updateContentsToMatchWidth(animated: animated)
         }
 
         private func alignItem(_ item: Item, animated: Bool = false) {

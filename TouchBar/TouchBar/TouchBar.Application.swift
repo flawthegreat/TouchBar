@@ -51,13 +51,8 @@ extension TouchBar {
 
 
         final func createView(frame: NSRect) {
-            view = NSView(frame: frame)
-            initView()
-        }
-
-        private func initView() {
-            view?.wantsLayer = true
-            view?.layer?.backgroundColor = NSColor.green.cgColor
+            view = initView()
+            view?.frame = frame
         }
 
         final func removeView() {
@@ -65,7 +60,8 @@ extension TouchBar {
             view = nil
         }
 
-        func updateWidth() {}
+        func initView() -> NSView { return NSView() }
+        func updateWidth(_ newWidth: CGFloat, animated: Bool = false) {}
         func applicationWillTerminate() {}
     }
 }

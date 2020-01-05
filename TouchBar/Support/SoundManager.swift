@@ -68,12 +68,7 @@ class SoundManager {
             defaultOutputDevice,
             &volumePropertyAddress,
             DispatchQueue.main,
-            { _, _ in
-                NotificationCenter.default.post(
-                    name: .volumeLevelHasChanged,
-                    object: nil
-                )
-            }
+            { _, _ in NotificationCenter.default.post(notification: .volumeLevelHasChanged) }
         )
 
         AudioObjectAddPropertyListener(
@@ -81,10 +76,7 @@ class SoundManager {
             &defaultOutputDevicePropertyAddress,
             { _, _, _, _  in
                 DispatchQueue.main.async {
-                    NotificationCenter.default.post(
-                        name: .defaultAudioOutputDeviceHasChanged,
-                        object: nil
-                    )
+                    NotificationCenter.default.post(notification: .defaultAudioOutputDeviceHasChanged)
                 }
                 return 0
             },
@@ -94,8 +86,7 @@ class SoundManager {
         NSWorkspace.shared.notificationCenter.addObserver(
             self,
             selector: #selector(updateDefaultOutputDevice),
-            name: .defaultAudioOutputDeviceHasChanged,
-            object: nil
+            name: .defaultAudioOutputDeviceHasChanged
         )
     }
 
