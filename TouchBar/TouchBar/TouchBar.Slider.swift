@@ -107,10 +107,7 @@ extension TouchBar {
 
             knob.frame.origin.x = offset + widthDifference
 
-            if abs(previousValue! - value) > 0.01 || previousValue != value && (value == 0 || value == 1) {
-                target?.perform(action)
-            }
-
+            if previousValue != value { target?.perform(action) }
             previousValue = value
         }
 

@@ -1,5 +1,13 @@
 extension NotificationCenter {
-    func addObserver(_ observer: Any, selector: Selector, names: [NSNotification.Name], object: Any?) {
-        names.forEach { addObserver(observer, selector: selector, name: $0, object: object) }
+    func addObserver(_ observer: Any, selector: Selector, name: NSNotification.Name) {
+        addObserver(observer, selector: selector, name: name, object: nil)
+    }
+
+    func addObserver(_ observer: Any, selector: Selector, names: [NSNotification.Name]) {
+        names.forEach { addObserver(observer, selector: selector, name: $0, object: nil) }
+    }
+
+    func post(notification name: Notification.Name) {
+        post(name: name, object: nil)
     }
 }

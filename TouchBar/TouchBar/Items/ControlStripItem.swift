@@ -13,10 +13,12 @@ class ControlStripItem: NSCustomTouchBarItem {
 
 
         override func touchesBegan(with event: NSEvent) {
+            super.touchesBegan(with: event)
             layer?.backgroundColor = NSColor.controlColor.cgColor
         }
 
         override func touchesEnded(with event: NSEvent) {
+            super.touchesEnded(with: event)
             layer?.backgroundColor = NSColor.controlAlternatingRowBackgroundColors[1].cgColor
         }
     }

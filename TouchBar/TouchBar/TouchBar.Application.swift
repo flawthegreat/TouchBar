@@ -1,31 +1,71 @@
 extension TouchBar {
-    class Application: NSView {
+    class Application {
+
+        final class Card: NSButton {
+
+            private unowned var application: Application
+            private unowned var applicationManager: ApplicationManager
+
+
+            init(accentColor: NSColor, application: Application, applicationManager: ApplicationManager) {
+                self.application = application
+                self.applicationManager = applicationManager
+
+                super.init(frame: NSRect(
+                    origin: CGPoint(x: -NSTouchBar.cardSize.width, y: 0),
+                    size: NSTouchBar.cardSize
+                ))
+
+                bezelStyle = .rounded
+                bezelColor = accentColor
+                font = .systemFont(ofSize: 17)
+
+                target = self
+                action = #selector(runApplication)
+            }
+
+            required init?(coder: NSCoder) { fatalError() }
+
+
+            @objc
+            func runApplication() {
+                applicationManager.runApplication(application)
+            }
+        }
 
         let name: String
+        private(set) var card: Card!
+        private(set) var view: NSView?
 
-        init(width: CGFloat, name: String) {
+        
+        init(name: String, accentColor: NSColor) {
             self.name = name
-
-            super.init(frame: NSRect(x: 0, y: 0, width: width, height: NSTouchBar.size.height))
-
-            print("Application \(name) has started")
+            card = Card(
+                accentColor: accentColor,
+                application: self,
+                applicationManager: TouchBar.shared.applicationManager
+            )
         }
 
         required init?(coder: NSCoder) { fatalError() }
 
-        deinit { print("Application \(name) was terminated") }
 
-
-        func updateWidth(_ width: CGFloat) {
-            updateContentsToMatchWidth(width)
-            NotificationCenter.default.post(
-                name: .touchBarApplicationDidChangeWidth,
-                object: nil
-            )
+        final func createView(frame: NSRect) {
+            view = NSView(frame: frame)
+            initView()
         }
 
-        func updateContentsToMatchWidth(_ width: CGFloat) {}
+        private func initView() {
+            view?.wantsLayer = true
+            view?.layer?.backgroundColor = NSColor.green.cgColor
+        }
 
+        final func removeView() {
+            view?.removeFromSuperview()
+            view = nil
+        }
+
+        func updateWidth() {}
         func applicationWillTerminate() {}
     }
 }

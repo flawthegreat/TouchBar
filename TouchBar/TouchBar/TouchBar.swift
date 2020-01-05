@@ -1,15 +1,15 @@
-class TouchBar: NSObject, NSTouchBarDelegate {
+final class TouchBar: NSObject, NSTouchBarDelegate {
 
     static let shared = TouchBar()
     
     private let touchBar = NSTouchBar()
     private let view = View()
     private var isVisible = false
-    private var frontmostApplicationBundleIdentifier: String? {
-        NSWorkspace.shared.frontmostApplication?.bundleIdentifier
-    }
 
-    var items: [Item] = [] { didSet { view.replaceItems(with: items) } }
+    var items = [Item]() { didSet { view.replaceItems(with: items) } }
+    var applicationManager: ApplicationManager { view.applicationManager }
+    var applications = [Application]() { didSet { view.applicationManager.applications = applications } }
+    var activeApplication: Application? { view.applicationManager.activeApplication }
 
 
     private override init() {
@@ -17,8 +17,6 @@ class TouchBar: NSObject, NSTouchBarDelegate {
 
         touchBar.delegate = self
         touchBar.defaultItemIdentifiers = [.viewItem]
-
-        view.setSwipeAction(#selector(hide), target: self)
 
         NSTouchBarItem.addSystemTrayItem(ControlStripItem(target: self, action: #selector(show)))
         DFRElementSetControlStripPresenceForIdentifier(.controlStripItem, true)
@@ -30,8 +28,7 @@ class TouchBar: NSObject, NSTouchBarDelegate {
                 NSWorkspace.didLaunchApplicationNotification,
                 NSWorkspace.didTerminateApplicationNotification,
                 NSWorkspace.didActivateApplicationNotification,
-            ],
-            object: nil
+            ]
         )
     }
 
@@ -60,33 +57,31 @@ class TouchBar: NSObject, NSTouchBarDelegate {
 
     @objc
     private func activeApplicationDidChange() {
-        if frontmostApplicationBundleIdentifier != Bundle.main.bundleIdentifier {
-//            dimApplication()
+        if NSWorkspace.shared.frontmostApplication?.bundleIdentifier != Bundle.main.bundleIdentifier {
+            view.applicationManager.addTint()
         } else if !isVisible {
             reloadControlStripButton()
         }
     }
 
-    func hideAllItems(except excludedItem: Item) {
+    func hideAllItems(except visibleItem: Item? = nil) {
         NSView.animate(withDuration: Constants.animationDuration) { _ in
-            for item in items where item != excludedItem { item.animator().alphaValue = 0 }
-            view.applicationView.animator().alphaValue = 0
+            for item in items where item != visibleItem { item.animator().alphaValue = 0 }
+            view.applicationManager.animator().alphaValue = 0
         }
     }
 
     func showAllItems() {
         NSView.animate(withDuration: Constants.animationDuration) { _ in
             items.forEach { $0.animator().alphaValue = 1 }
-            view.applicationView.animator().alphaValue = 1
+            view.applicationManager.animator().alphaValue = 1
         }
     }
 
     func touchBar(_: NSTouchBar, makeItemForIdentifier identifier: NSTouchBarItem.Identifier) -> NSTouchBarItem? {
         switch identifier {
-        case .viewItem:
-            return NSCustomTouchBarItem(identifier: .viewItem, view: view)
-        default:
-            return nil
+        case .viewItem: return NSCustomTouchBarItem(identifier: .viewItem, view: view)
+        default: return nil
         }
     }
 }

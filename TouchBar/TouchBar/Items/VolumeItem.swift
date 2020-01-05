@@ -16,8 +16,7 @@ class VolumeItem: TouchBar.Button {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(update),
-            names: [.volumeLevelHasChanged, .defaultAudioOutputDeviceHasChanged],
-            object: nil
+            names: [.volumeLevelHasChanged, .defaultAudioOutputDeviceHasChanged]
         )
 
         target = self

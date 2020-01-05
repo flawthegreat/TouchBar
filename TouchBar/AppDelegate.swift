@@ -9,14 +9,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = menu
 
         TouchBar.shared.items = [
-//            CalculatorItem(alignment: .left),
-            AppSwitcher(alignment: .left),
             VolumeItem(alignment: .left),
             BrightnessItem(alignment: .left),
+            AppSwitcherItem(alignment: .left),
             DateItem(alignment: .right),
             BatteryItem(alignment: .right),
             AirPodsItem(alignment: .right),
         ]
+
+        TouchBar.shared.applications = [
+            TouchBar.Application(name: "Hello)", accentColor: .systemIndigo),
+            TouchBar.Application(name: "Hello)", accentColor: .systemRed),
+            TouchBar.Application(name: "Hello)", accentColor: .systemBlue),
+            TouchBar.Application(name: "Hello)", accentColor: .systemGray),
+            TouchBar.Application(name: "Hello)", accentColor: .systemGreen),
+            TouchBar.Application(name: "Hello)", accentColor: .systemOrange),
+            TouchBar.Application(name: "Hello)", accentColor: .systemPurple),
+            TouchBar.Application(name: "Hello)", accentColor: .systemTeal),
+        ]
+
         TouchBar.shared.show()
     }
 
