@@ -11,8 +11,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         TouchBar.shared.items = [
             VolumeItem(alignment: .left),
             BrightnessItem(alignment: .left),
-            AppSwitcherItem(alignment: .left),
-            DateItem(alignment: .right),
+
+            TimeItem(alignment: .right),
             BatteryItem(alignment: .right),
             AirPodsItem(alignment: .right),
         ]
@@ -24,11 +24,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         TouchBar.shared.show()
     }
 
-    @IBAction func reloadControlStripButton(_ sender: NSMenuItem) {
+    @IBAction
+    func reloadControlStripButton(_ sender: NSMenuItem) {
         TouchBar.shared.reloadControlStripButton()
     }
 
-    @IBAction func quit(_ sender: NSMenuItem) {
+    @IBAction
+    func quit(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
     }
 }

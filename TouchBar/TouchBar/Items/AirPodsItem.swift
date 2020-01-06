@@ -3,46 +3,38 @@ import IOBluetooth
 final class AirPodsItem: TouchBar.Item {
 
     private let addressString = "fc-1d-43-dd-6b-3d"
-    private let width: CGFloat = 22
-    private let button: NSButton
-    private let icon: NSImageView
-    private var flash: NSView
+
+    private let button = NSButton(frame: NSRect(origin: .zero, size: CGSize(width: 22, height: TouchBar.size.height)))
+    private let icon = NSImageView(frame: NSRect(x: 0, y: 5.8, width: 22, height: 18))
+    private var flash = NSView(frame: NSRect(origin: .zero, size: CGSize(width: 22, height: TouchBar.size.height)))
+
     private var airPods: IOBluetoothDevice?
 
 
     init(alignment: Alignment) {
-        button = NSButton(frame: NSRect(
-            x: 0,
-            y: 0,
-            width: width,
-            height: NSTouchBar.size.height
-        ))
-        icon = NSImageView(frame: NSRect(x: 0, y: 5.8, width: width, height: 18))
-        flash = NSView(frame: button.bounds)
-
-        super.init(alignment: alignment, width: width)
+        super.init(alignment: alignment, width: 22)
 
         button.target = self
         button.action = #selector(searchForAirPods)
         button.bezelStyle = .regularSquare
 
         flash.wantsLayer = true
-        flash.layer?.cornerRadius = 5
+        flash.layer?.cornerRadius = 6
+        flash.layer?.cornerCurve = .continuous
         flash.layer?.backgroundColor = NSColor.controlColor.cgColor
         flash.alphaValue = 0
 
         button.addSubview(flash)
 
         icon.image = NSImage(named: "AirPodsIcon")
+        update()
 
-        NSWorkspace.shared.notificationCenter.addObserver(
-            self,
-            selector: #selector(updateIcon),
-            name: NSWorkspace.screensDidWakeNotification
+        IOBluetoothDevice.register(
+            forConnectNotifications: self,
+            selector: #selector(update)
         )
 
         searchForAirPods(updateConnection: false)
-        updateIcon()
 
         addSubview(icon)
         addSubview(button)
@@ -51,8 +43,7 @@ final class AirPodsItem: TouchBar.Item {
     required init?(coder: NSCoder) { fatalError() }
 
 
-    @objc
-    private func updateIcon() {
+    override func update() {
         icon.alphaValue = airPods?.isConnected() ?? false ? 1 : 0.5
     }
 
@@ -69,19 +60,13 @@ final class AirPodsItem: TouchBar.Item {
                 else { continue }
 
                 airPods = IOBluetoothDevice(addressString: addressString)
-                updateIcon()
-
-                guard airPods != nil else { continue }
 
                 airPods?.register(
                     forDisconnectNotification: self,
-                    selector: #selector(updateIcon)
+                    selector: #selector(update)
                 )
 
-                IOBluetoothDevice.register(
-                    forConnectNotifications: self,
-                    selector: #selector(updateIcon)
-                )
+                break
             }
         }
 
@@ -95,8 +80,6 @@ final class AirPodsItem: TouchBar.Item {
     }
 
     override func touchesEnded(with event: NSEvent) {
-        NSView.animate(withDuration: Constants.animationDuration * 2) { _ in
-            self.flash.animator().alphaValue = 0
-        }
+        NSView.animate(withDuration: TouchBar.animationDuration * 2) { _ in self.flash.animator().alphaValue = 0 }
     }
 }

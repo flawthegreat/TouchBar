@@ -6,10 +6,8 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
     private let view = View()
     private var isVisible = false
 
-    var items = [Item]() { didSet { view.replaceItems(with: items) } }
-    var applicationManager: ApplicationManager { view.applicationManager }
+    var items = [Item]() { didSet { view.items = items } }
     var applications = [Application]() { didSet { view.applicationManager.applications = applications } }
-    var activeApplication: Application? { view.applicationManager.activeApplication }
 
 
     private override init() {
@@ -28,6 +26,9 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
                 NSWorkspace.didLaunchApplicationNotification,
                 NSWorkspace.didTerminateApplicationNotification,
                 NSWorkspace.didActivateApplicationNotification,
+                NSWorkspace.didHideApplicationNotification,
+                NSWorkspace.didUnhideApplicationNotification,
+                NSWorkspace.didDeactivateApplicationNotification,
             ]
         )
     }
@@ -45,10 +46,10 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
 
     @objc
     func hide() {
-        isVisible = false
-
         touchBar.controlStripSetVisible(true)
         NSTouchBar.minimizeSystemModalTouchBar(touchBar)
+
+        isVisible = false
     }
 
     func reloadControlStripButton() {
@@ -61,20 +62,6 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
             view.applicationManager.addTint()
         } else if !isVisible {
             reloadControlStripButton()
-        }
-    }
-
-    func hideAllItems(except visibleItem: Item? = nil) {
-        NSView.animate(withDuration: Constants.animationDuration) { _ in
-            for item in items where item != visibleItem { item.animator().alphaValue = 0 }
-            view.applicationManager.animator().alphaValue = 0
-        }
-    }
-
-    func showAllItems() {
-        NSView.animate(withDuration: Constants.animationDuration) { _ in
-            items.forEach { $0.animator().alphaValue = 1 }
-            view.applicationManager.animator().alphaValue = 1
         }
     }
 

@@ -24,12 +24,12 @@ final class ControlStripItem: NSCustomTouchBarItem {
     }
 
 
-    init(target: NSObject?, action: Selector?) {
+    init(target: AnyObject?, action: Selector?) {
         super.init(identifier: .controlStripItem)
 
         view = NSButton(title: "􀏪", target: target, action: action)
         if view.subviews.count > 0 {
-            view.subviews[0] = ButtonBackground(frame: NSRect(origin: .zero, size: NSTouchBar.buttonSize))
+            view.subviews[0] = ButtonBackground(frame: NSRect(origin: .zero, size: TouchBar.buttonSize))
         }
     }
 

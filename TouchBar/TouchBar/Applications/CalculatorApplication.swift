@@ -1,15 +1,15 @@
 final class CalculatorApplication: TouchBar.Application {
 
     init() {
-        super.init(name: "Calculator", accentColor: .systemOrange)
+        super.init(iconColor: .systemOrange)
 
-        card.image = NSImage(named: "CalculatorIcon")!
+        icon.image = NSImage(named: "CalculatorIcon")!
     }
 
     required init?(coder: NSCoder) { fatalError() }
 
 
-    override func initView() -> NSView { CalculatorView() }
+    override func createView(width: CGFloat) -> NSView { CalculatorView(width: width) }
 
     override func applicationWillTerminate() {
         guard let view = view as? CalculatorView, let monitor = view.keyDownMonitor else { return }
@@ -18,10 +18,10 @@ final class CalculatorApplication: TouchBar.Application {
         view.keyDownMonitor = nil
     }
 
-    override func updateWidth(_ newWidth: CGFloat, animated: Bool = false) {
-        guard let view = view as? CalculatorView else { return }
+    override func updateWidth() {
+        guard let view = view as? CalculatorView, let superview = view.superview else { return }
 
-        view.update(newWidth, animated: animated)
+        view.updateWidth(superview.frame.width)
     }
 }
 
@@ -36,15 +36,14 @@ extension CalculatorApplication {
         class OperationButton: NSButton {
 
             let operation: Operation
-            var isSelected: Bool { layer?.borderWidth != 0 }
-            unowned var view: CalculatorView!
+            unowned var view: CalculatorView
 
 
             init(operation: Operation, view: CalculatorView) {
                 self.operation = operation
                 self.view = view
 
-                super.init(frame: NSRect(origin: .zero, size: NSTouchBar.buttonSize))
+                super.init(frame: NSRect(origin: .zero, size: TouchBar.buttonSize))
 
                 bezelColor = .systemOrange
                 bezelStyle = .rounded
@@ -63,7 +62,7 @@ extension CalculatorApplication {
 
 
             func select() {
-                view.chooseOperation(operation, sender: self)
+                view.chooseOperation(sender: self)
                 layer?.borderWidth = 2
             }
 
@@ -78,52 +77,11 @@ extension CalculatorApplication {
             }
         }
 
-        class Button: NSButton {
-
-            let flashBackground = NSView(frame: NSRect(origin: .zero, size: CGSize(
-                width: 64,
-                height: NSTouchBar.size.height
-            )))
-
-
-            init(title: String, target: NSObject? = nil, action: Selector? = nil) {
-                super.init(frame: NSRect(origin: .zero, size: CGSize(width: 64, height: NSTouchBar.size.height)))
-
-                bezelStyle = .rounded
-
-                font = .systemFont(ofSize: 17)
-                self.title = title
-
-                self.target = target
-                self.action = action
-
-                flashBackground.wantsLayer = true
-                flashBackground.layer?.backgroundColor = NSColor.systemGreen.cgColor
-                flashBackground.layer?.cornerRadius = 6
-                flashBackground.layer?.cornerCurve = .continuous
-                flashBackground.alphaValue = 0
-
-                addSubview(flashBackground)
-            }
-
-            required init?(coder: NSCoder) { fatalError() }
-
-
-            override func flash() {
-                NSView.animate(withDuration: Constants.animationDuration, changes: { _ in
-                    flashBackground.animator().alphaValue = 0.75
-                }, completionHandler: {
-                    NSView.animate(withDuration: Constants.animationDuration) { _ in
-                        self.flashBackground.animator().alphaValue = 0
-                    }
-                })
-            }
-        }
-
         let previousValueLabel = NSTextField(frame: NSRect(origin: .zero, size: CGSize(width: 0, height: 24)))
         let currentValueLabel = NSTextField(frame: NSRect(origin: .zero, size: CGSize(width: 0, height: 24)))
 
-        let pasteButton = Button(title: "􀉄")
+        let pasteButton = NSButton(title: "􀉄", target: nil, action: nil)
+        let copyButton = NSButton(title: "􀉂", target: nil, action: nil)
 
         var keyDownMonitor: Any?
 
@@ -137,8 +95,8 @@ extension CalculatorApplication {
         var isChoosingOperation = false
 
 
-        init() {
-            super.init(frame: .zero)
+        init(width: CGFloat) {
+            super.init(frame: NSRect(origin: .zero, size: CGSize(width: width, height: TouchBar.size.height)))
 
             previousValueLabel.font = .systemFont(ofSize: 19)
             previousValueLabel.textColor = NSColor(white: 0.7, alpha: 1)
@@ -153,9 +111,15 @@ extension CalculatorApplication {
             addSubview(previousValueLabel)
             addSubview(currentValueLabel)
 
+            copyButton.frame.size = CGSize(width: 64, height: TouchBar.size.height)
+            copyButton.target = self
+            copyButton.action = #selector(copyNumber)
+
+            pasteButton.frame.size = CGSize(width: 64, height: TouchBar.size.height)
             pasteButton.target = self
             pasteButton.action = #selector(pasteNumber)
 
+            addSubview(copyButton)
             addSubview(pasteButton)
 
             keyDownMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown, handler: keyDown(with:))
@@ -165,18 +129,22 @@ extension CalculatorApplication {
             addSubview(divide)
 
             let multiply = OperationButton(operation: Operation(name: "􀅾", perform: { $0 * $1 }), view: self)
-            multiply.frame.origin.x = NSTouchBar.buttonSize.width + NSTouchBar.itemGap
+            multiply.frame.origin.x = TouchBar.buttonSize.width + TouchBar.itemGap
             addSubview(multiply)
 
             let subtract = OperationButton(operation: Operation(name: "􀅽", perform: { $0 - $1 }), view: self)
-            subtract.frame.origin.x = (NSTouchBar.buttonSize.width + NSTouchBar.itemGap) * 2
+            subtract.frame.origin.x = (TouchBar.buttonSize.width + TouchBar.itemGap) * 2
             addSubview(subtract)
 
             let sum = OperationButton(operation: Operation(name: "􀅼", perform: { $0 + $1 }), view: self)
-            sum.frame.origin.x = (NSTouchBar.buttonSize.width + NSTouchBar.itemGap) * 3
+            sum.frame.origin.x = (TouchBar.buttonSize.width + TouchBar.itemGap) * 3
             addSubview(sum)
 
+            previousValueLabel.frame.origin.x = (TouchBar.buttonSize.width + TouchBar.itemGap) * 4
+            currentValueLabel.frame.origin.x = (TouchBar.buttonSize.width + TouchBar.itemGap) * 4
+
             update()
+            updateWidth(width)
         }
 
         required init?(coder: NSCoder) { fatalError() }
@@ -223,40 +191,28 @@ extension CalculatorApplication {
             update()
         }
 
-        func copyResult() {
-            pasteButton.flash()
+        @objc
+        func copyNumber() {
             NSPasteboard.general.declareTypes([.string], owner: nil)
             NSPasteboard.general.setString(currentValue, forType: .string)
         }
 
-        override func touchesBegan(with event: NSEvent) {
-            super.touchesBegan(with: event)
-
-            guard let x = event.touches(matching: .began, in: self).first?.location(in: self).x else { return }
-
-            let bound = (NSTouchBar.buttonSize.width + NSTouchBar.itemGap) * 4
-            if x > bound && x < bound + currentValueLabel.frame.width { copyResult() }
-        }
-
-        func update(_ newWidth: CGFloat = TouchBar.shared.applicationManager.frame.width, animated: Bool = false) {
+        func update() {
             previousValueLabel.stringValue = previousValue
             currentValueLabel.stringValue = currentValue
-
-            NSView.animate(withDuration: animated ? Constants.animationDuration : 0) { _ in
-                pasteButton.animator().frame.origin.x = newWidth - pasteButton.frame.width - 2
-
-                let width = newWidth - (NSTouchBar.buttonSize.width + NSTouchBar.itemGap) * 4 - (pasteButton.frame.size.width + NSTouchBar.itemGap)
-                let x = (NSTouchBar.buttonSize.width + NSTouchBar.itemGap) * 4
-
-                previousValueLabel.animator().frame.size.width = width
-                previousValueLabel.animator().frame.origin.x = x
-
-                currentValueLabel.animator().frame.size.width = width
-                currentValueLabel.animator().frame.origin.x = x
-            }
         }
 
-        func chooseOperation(_ operation: Operation, sender: OperationButton) {
+        func updateWidth(_ newWidth: CGFloat) {
+            copyButton.frame.origin.x = newWidth - pasteButton.frame.width - TouchBar.itemGap - copyButton.frame.width
+            pasteButton.frame.origin.x = newWidth - pasteButton.frame.width
+
+            let width = newWidth - (TouchBar.buttonSize.width + TouchBar.itemGap) * 4 - (pasteButton.frame.width + TouchBar.itemGap) - (copyButton.frame.width + TouchBar.itemGap)
+
+            previousValueLabel.frame.size.width = width
+            currentValueLabel.frame.size.width = width
+        }
+
+        func chooseOperation(sender: OperationButton) {
             if !isChoosingOperation {
                 previousValue = currentValue
                 currentValue = "0"
@@ -270,7 +226,9 @@ extension CalculatorApplication {
             for case let operationButton as OperationButton in subviews {
                 if operationButton != sender { operationButton.deselect() }
             }
-            self.operation = operation
+            self.operation = sender.operation
+
+            update()
         }
 
         func digitForKeyCode(_ keyCode: UInt16) -> String? {
@@ -334,7 +292,7 @@ extension CalculatorApplication {
                 return nil
             }
 
-            if keyCode == 47 {
+            if keyCode == 47 && !isFillingFractionalPlaces {
                 isFillingFractionalPlaces = true
                 currentValue += "."
 

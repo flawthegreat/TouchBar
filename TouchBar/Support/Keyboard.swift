@@ -1,6 +1,6 @@
 import CoreGraphics
 
-class Keyboard {
+final class Keyboard {
 
     typealias KeyCode = UInt32
 
