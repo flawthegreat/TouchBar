@@ -58,7 +58,7 @@ extension TouchBar {
 
             applicationSwitcherButton.bezelStyle = .rounded
             applicationSwitcherButton.font = .systemFont(ofSize: TouchBar.fontSize)
-            applicationSwitcherButton.title = "􀚇"
+            applicationSwitcherButton.image = NSImage(named: "ApplicationSwitcherIcon")
             applicationSwitcherButton.target = self
             applicationSwitcherButton.action = #selector(toggleApplicationSwitcher)
 
@@ -79,16 +79,17 @@ extension TouchBar {
 
 
         private func openApplicationSwitcher() {
+            isInApplicationSwitcher = true
+
             applicationSwitcher.frame.origin.y = 0
             applicationSwitcher.documentView?.scroll(.zero)
 
             removeTint()
 
-            isInApplicationSwitcher = true
-
             NSView.animate(withDuration: TouchBar.animationDuration) { _ in
                 applicationSwitcher.animator().alphaValue = 1
                 applicationView.animator().alphaValue = 0
+                applicationView.animator().frame.origin.x = frame.width
 
                 var applicationCount: CGFloat = 0
                 for application in applications {
@@ -104,10 +105,11 @@ extension TouchBar {
             NSView.animate(withDuration: TouchBar.animationDuration, changes: { _ in
                 applicationSwitcher.animator().alphaValue = 0
                 applicationView.animator().alphaValue = isDimmed ? 0.5 : 1
+                applicationView.animator().frame.origin.x = TouchBar.buttonSize.width + TouchBar.itemGap
                 
                 applications.forEach { $0.icon.animator().frame.origin.x = 0 }
             }, completionHandler: { [unowned self] in
-                self.applicationSwitcher.frame.origin.y = -TouchBar.size.height
+                if !self.isInApplicationSwitcher { self.applicationSwitcher.frame.origin.y = -TouchBar.size.height }
             })
         }
 
@@ -121,15 +123,17 @@ extension TouchBar {
         private func runApplication(_ sender: Application.Icon) {
             terminateApplication()
 
-            applicationView.frame.origin.y = 0
-
             sender.application.createInstance(width: applicationView.frame.width)
             applicationView.addSubview(sender.application.view!)
             activeApplication = sender.application
 
             removeTint()
 
-            closeApplicationSwitcher()
+            NSView.animate(withDuration: 0, changes: { _ in
+                applicationView.frame.origin.y = 0
+            }, completionHandler: { [unowned self] in
+                self.closeApplicationSwitcher()
+            })
         }
 
         private func terminateApplication() {
