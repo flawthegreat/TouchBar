@@ -22,7 +22,7 @@ extension NSTouchBar {
 extension TouchBar {
     static let swipeThreshold: CGFloat = 20
 
-    static let animationDuration: TimeInterval = 0.2
+    static let animationDuration: TimeInterval = 0.2// * 10
 
     static let size = NSSize(width: 1085, height: 30)
     static let buttonSize = NSSize(width: 72, height: 30)

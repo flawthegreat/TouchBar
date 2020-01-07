@@ -22,6 +22,7 @@ extension TouchBar {
         private let applicationSwitcherButton = NSButton(frame: NSRect(origin: .zero, size: TouchBar.buttonSize))
         private let terminateApplicationButton = NSButton(frame: NSRect(origin: .zero, size: TouchBar.buttonSize))
 
+        private var isInApplicationSwitcher = false
         private(set) var isDimmed = false
 
         var applications = [Application]() {
@@ -83,8 +84,11 @@ extension TouchBar {
 
             removeTint()
 
+            isInApplicationSwitcher = true
+
             NSView.animate(withDuration: TouchBar.animationDuration) { _ in
                 applicationSwitcher.animator().alphaValue = 1
+                applicationView.animator().alphaValue = 0
 
                 var applicationCount: CGFloat = 0
                 for application in applications {
@@ -95,8 +99,12 @@ extension TouchBar {
         }
 
         private func closeApplicationSwitcher() {
+            isInApplicationSwitcher = false
+
             NSView.animate(withDuration: TouchBar.animationDuration, changes: { _ in
                 applicationSwitcher.animator().alphaValue = 0
+                applicationView.animator().alphaValue = isDimmed ? 0.5 : 1
+                
                 applications.forEach { $0.icon.animator().frame.origin.x = 0 }
             }, completionHandler: { [unowned self] in
                 self.applicationSwitcher.frame.origin.y = -TouchBar.size.height
@@ -105,8 +113,8 @@ extension TouchBar {
 
         @objc
         private func toggleApplicationSwitcher() {
-            if applicationSwitcher.alphaValue == 0 { openApplicationSwitcher() }
-            else { closeApplicationSwitcher() }
+            if isInApplicationSwitcher { closeApplicationSwitcher() }
+            else { openApplicationSwitcher() }
         }
 
         @objc
@@ -158,7 +166,11 @@ extension TouchBar {
         }
 
         override func hitTest(_ point: NSPoint) -> NSView? {
-            guard isDimmed && applicationSwitcher.alphaValue == 0 else { return super.hitTest(point) }
+            guard
+                isDimmed &&
+                !isInApplicationSwitcher &&
+                point.x >= applicationView.frame.origin.x + frame.origin.x
+            else { return super.hitTest(point) }
 
             removeTint()
 

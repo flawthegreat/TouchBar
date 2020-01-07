@@ -24,7 +24,7 @@ extension NSView {
         NSView.animate(withDuration: TouchBar.animationDuration, changes: { _ in
             animator().alphaValue = 1
         }, completionHandler: {
-            NSView.animate(withDuration: TouchBar.animationDuration) { _ in
+            NSView.animate(withDuration: TouchBar.animationDuration) { [unowned self] _ in
                 self.animator().alphaValue = 0
             }
         })
