@@ -13,7 +13,7 @@
 		CE274B8E237803E0002EA61A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE274B8D237803E0002EA61A /* Assets.xcassets */; };
 		CE274B91237803E0002EA61A /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE274B8F237803E0002EA61A /* Main.xib */; };
 		CE274B9F2378045B002EA61A /* TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274B9E2378045B002EA61A /* TouchBar.swift */; };
-		CE274BA323780487002EA61A /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274BA223780487002EA61A /* Time.swift */; };
+		CE274BA323780487002EA61A /* TimeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE274BA223780487002EA61A /* TimeItem.swift */; };
 		CE38C904239CF48200F78380 /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38C903239CF48200F78380 /* NSView.swift */; };
 		CE38C908239CF55700F78380 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38C907239CF55700F78380 /* NotificationCenter.swift */; };
 		CE4FCF0323797E5C004D2DC0 /* ControlStripItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */; };
@@ -47,7 +47,7 @@
 		CE274B92237803E0002EA61A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE274B93237803E0002EA61A /* TouchBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TouchBar.entitlements; sourceTree = "<group>"; };
 		CE274B9E2378045B002EA61A /* TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.swift; sourceTree = "<group>"; };
-		CE274BA223780487002EA61A /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		CE274BA223780487002EA61A /* TimeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeItem.swift; sourceTree = "<group>"; };
 		CE274BA5237804A9002EA61A /* TouchBarAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchBarAPI.h; sourceTree = "<group>"; };
 		CE274BA7237804C7002EA61A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		CE38C903239CF48200F78380 /* NSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4FCF0223797E5C004D2DC0 /* ControlStripItem.swift */,
-				CE274BA223780487002EA61A /* Time.swift */,
+				CE274BA223780487002EA61A /* TimeItem.swift */,
 				CE59AA71237834D700A08DBE /* BatteryItem.swift */,
 				CE59AA752378994200A08DBE /* AirPodsItem.swift */,
 				CE6C593B2379F968001DDB05 /* VolumeItem.swift */,
@@ -294,7 +294,7 @@
 				CEB9930E237D4B550011DB48 /* View.swift in Sources */,
 				CEC7497F237DED0400E41E60 /* ApplicationManager.swift in Sources */,
 				CEC7497D237DC78400E41E60 /* Slider.swift in Sources */,
-				CE274BA323780487002EA61A /* Time.swift in Sources */,
+				CE274BA323780487002EA61A /* TimeItem.swift in Sources */,
 				CEB99310237D4C4E0011DB48 /* Extensions.swift in Sources */,
 				CE9829CF23C0987000CC3677 /* Keyboard.swift in Sources */,
 				CE9763DA23C3594100BE7D47 /* NSColor.swift in Sources */,
