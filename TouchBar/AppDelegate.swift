@@ -21,6 +21,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             CalculatorApplication(),
         ]
 
+        TouchBar.shared.defaultTouchBarApplications = [
+            "com.apple.Preview",
+            "com.apple.screencaptureui",
+        ]
+
         TouchBar.shared.show()
     }
 

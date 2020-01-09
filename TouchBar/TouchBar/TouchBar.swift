@@ -1,13 +1,15 @@
-final class TouchBar: NSObject, NSTouchBarDelegate {
+final class TouchBar: NSObject, NSTouchBarDelegate, NSMetadataQueryDelegate {
 
     static let shared = TouchBar()
     
     private let touchBar = NSTouchBar()
     private let view = View()
+    private var isTemporaryHidden = false
     private var isVisible = false
 
     var items = [Item]() { didSet { view.items = items } }
     var applications = [Application]() { didSet { view.applicationManager.applications = applications } }
+    var defaultTouchBarApplications = [String]()
 
 
     private override init() {
@@ -42,6 +44,7 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
         NSTouchBar.presentSystemModalTouchBar(touchBar, systemTrayItemIdentifier: .controlStripItem)
 
         isVisible = true
+        isTemporaryHidden = false
     }
 
     @objc
@@ -50,6 +53,7 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
         NSTouchBar.minimizeSystemModalTouchBar(touchBar)
 
         isVisible = false
+        isTemporaryHidden = false
     }
 
     func reloadControlStripButton() {
@@ -58,6 +62,13 @@ final class TouchBar: NSObject, NSTouchBarDelegate {
 
     @objc
     private func activeApplicationDidChange() {
+        if defaultTouchBarApplications.contains(NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? "") {
+            if isVisible {
+                hide()
+                isTemporaryHidden = true
+            }
+        } else if isTemporaryHidden { show() }
+
         if NSWorkspace.shared.frontmostApplication?.bundleIdentifier != Bundle.main.bundleIdentifier {
             view.applicationManager.addTint()
         } else if !isVisible {
