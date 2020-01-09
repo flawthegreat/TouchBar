@@ -17,7 +17,7 @@ final class TimeItem: TouchBar.Item {
         label.font = .systemFont(ofSize: TouchBar.fontSize)
         label.alignment = .center
 
-        resetTimer()
+        update()
 
         addSubview(label)
     }
@@ -25,9 +25,8 @@ final class TimeItem: TouchBar.Item {
     required init?(coder: NSCoder) { fatalError() }
 
 
-    @objc
-    private func resetTimer() {
-        update()
+    override func update() {
+        updateLabel()
 
         let currentDate = Date()
         let delay = TimeInterval(60 - Calendar.current.component(.second, from: currentDate))
@@ -37,14 +36,15 @@ final class TimeItem: TouchBar.Item {
             fireAt: currentDate.addingTimeInterval(delay),
             interval: 60,
             target: self,
-            selector: #selector(update),
+            selector: #selector(updateLabel),
             userInfo: nil,
             repeats: true
         )
         RunLoop.current.add(timer!, forMode: .default)
     }
 
-    override func update() {
+    @objc
+    private func updateLabel() {
         label.stringValue = Date().string(withFormat: "H:mm")
         label.sizeToFit()
         label.frame.size.height = TouchBar.size.height
