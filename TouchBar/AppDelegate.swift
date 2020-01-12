@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             CalculatorApplication(),
         ]
 
-        TouchBar.shared.defaultTouchBarApplications = [
+        TouchBar.shared.applicationsWithDefaultTouchBar = [
             "com.apple.Preview",
             "com.apple.screencaptureui",
         ]
@@ -30,8 +30,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction
-    func reloadControlStripButton(_ sender: NSMenuItem) {
+    func showCustomTouchBar(_ sender: NSMenuItem) {
         TouchBar.shared.reloadControlStripButton()
+        TouchBar.shared.show()
     }
 
     @IBAction

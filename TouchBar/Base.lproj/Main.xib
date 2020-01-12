@@ -19,12 +19,10 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu id="KES-pQ-SDZ">
             <items>
-                <menuItem title="Touch Bar" state="on" id="Ngz-iA-3Yd">
+                <menuItem title="Show custom Touch Bar" id="sUW-lz-HBa">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Reload Control Strip button" keyEquivalent="r" id="sUW-lz-HBa">
                     <connections>
-                        <action selector="reloadControlStripButton:" target="Voe-Tx-rLC" id="uBb-L8-vzI"/>
+                        <action selector="showCustomTouchBar:" target="Voe-Tx-rLC" id="uBb-L8-vzI"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="bls-vg-qVA"/>

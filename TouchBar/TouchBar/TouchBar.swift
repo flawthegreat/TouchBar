@@ -9,7 +9,7 @@ final class TouchBar: NSObject, NSTouchBarDelegate, NSMetadataQueryDelegate {
 
     var items = [Item]() { didSet { view.items = items } }
     var applications = [Application]() { didSet { view.applicationManager.applications = applications } }
-    var defaultTouchBarApplications = [String]()
+    var applicationsWithDefaultTouchBar = [String]()
 
 
     private override init() {
@@ -62,7 +62,7 @@ final class TouchBar: NSObject, NSTouchBarDelegate, NSMetadataQueryDelegate {
 
     @objc
     private func activeApplicationDidChange() {
-        if defaultTouchBarApplications.contains(NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? "") {
+        if applicationsWithDefaultTouchBar.contains(NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? "") {
             if isVisible {
                 hide()
                 isTemporaryHidden = true
