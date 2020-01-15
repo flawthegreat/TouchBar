@@ -31,7 +31,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBAction
     func showCustomTouchBar(_ sender: NSMenuItem) {
-        TouchBar.shared.reloadControlStripButton()
         TouchBar.shared.show()
     }
 
