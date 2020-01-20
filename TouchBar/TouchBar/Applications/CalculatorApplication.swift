@@ -314,6 +314,7 @@ extension CalculatorApplication {
                 currentValue.removeLast()
                 if isFillingFractionalPlaces { fractionalPlaces -= 1 }
                 if currentValue.count == 0 { currentValue = "0" }
+                if currentValue == "-" { currentValue = "0" }
 
                 return nil
             }
